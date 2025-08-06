@@ -1587,7 +1587,8 @@ export function Dashboard() {
                                 <span>👥 {event.attendees}</span>
                               </div>
                             </div>
-                            <Button size="sm" className="text-xs" onClick={() => alert('Event joining feature coming soon!')}>
+                            <Button size="sm" className="text-xs flex items-center gap-1" onClick={() => alert('Event joining feature coming soon!')}>
+                              <Users className="w-3 h-3" />
                               Join
                             </Button>
                           </div>
