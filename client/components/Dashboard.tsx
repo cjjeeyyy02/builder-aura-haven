@@ -1368,7 +1368,7 @@ export function Dashboard() {
                           Sarah Jhonson
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          HR Department ��� 1 hour ago
+                          HR Department • 1 hour ago
                         </span>
                       </div>
                       <p className="text-sm text-gray-700 mb-2">
@@ -1422,17 +1422,28 @@ export function Dashboard() {
                 variant={calendarView === 'list' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setCalendarView('list')}
-                className="text-xs"
+                className="text-xs flex items-center gap-1"
               >
+                <List className="w-3 h-3" />
                 List
               </Button>
               <Button
                 variant={calendarView === 'calendar' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setCalendarView('calendar')}
-                className="text-xs"
+                className="text-xs flex items-center gap-1"
               >
+                <Calendar className="w-3 h-3" />
                 Calendar
+              </Button>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => alert('Add Event: Create new company event!\n\nFeatures coming soon:\n• Event title & description\n• Date & time selection\n• Location & attendees\n• Event type & tags')}
+                className="text-xs flex items-center gap-1 bg-blue-600 hover:bg-blue-700"
+              >
+                <CalendarPlus className="w-3 h-3" />
+                Add Event
               </Button>
             </div>
           </CardHeader>
