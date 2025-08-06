@@ -1569,6 +1569,43 @@ export function Dashboard() {
                   </div>
                 </div>
 
+                {/* Quick Event Actions */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <h4 className="text-xs font-semibold text-blue-800 mb-2 flex items-center gap-1">
+                    <CalendarPlus className="w-3 h-3" />
+                    Quick Actions
+                  </h4>
+                  <div className="flex gap-2 flex-wrap">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs flex items-center gap-1 hover:bg-purple-50"
+                      onClick={() => alert('Quick add Conference event')}
+                    >
+                      <div className="w-2 h-2 rounded bg-purple-500"></div>
+                      Add Conference
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs flex items-center gap-1 hover:bg-blue-50"
+                      onClick={() => alert('Quick add Meeting event')}
+                    >
+                      <div className="w-2 h-2 rounded bg-blue-500"></div>
+                      Add Meeting
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs flex items-center gap-1 hover:bg-green-50"
+                      onClick={() => alert('Quick add Workshop event')}
+                    >
+                      <div className="w-2 h-2 rounded bg-green-500"></div>
+                      Add Workshop
+                    </Button>
+                  </div>
+                </div>
+
                 {/* Selected Date Events */}
                 {getEventsForDate(selectedDate).length > 0 && (
                   <div className="border-t pt-4">
@@ -2979,7 +3016,7 @@ export function Dashboard() {
                     📊 Department Reports
                   </Button>
                   <Button size="sm" variant="outline" className="text-xs">
-                    👥 Employee Directory
+                    �� Employee Directory
                   </Button>
                   <Button size="sm" variant="outline" className="text-xs">
                     📈 Performance Analytics
