@@ -1478,7 +1478,8 @@ export function Dashboard() {
                           <span>👥 {event.attendees}</span>
                         </div>
                       </div>
-                      <Button size="sm" className="text-xs" onClick={() => alert('Event registration coming soon!')}>
+                      <Button size="sm" className="text-xs flex items-center gap-1" onClick={() => alert('Event registration coming soon!')}>
+                        <CalendarPlus className="w-3 h-3" />
                         Going to Event
                       </Button>
                     </div>
