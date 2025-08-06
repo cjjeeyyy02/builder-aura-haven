@@ -37,70 +37,78 @@ export function Dashboard() {
   const [isActivityOpen, setIsActivityOpen] = useState(false);
   const [isFilesOpen, setIsFilesOpen] = useState(false);
   const [isRemindersOpen, setIsRemindersOpen] = useState(false);
-    const [isForumOpen, setIsForumOpen] = useState(false);
-    const [isMeetingsOpen, setIsMeetingsOpen] = useState(false);
-    const [isAllActivitiesOpen, setIsAllActivitiesOpen] = useState(false);
+  const [isForumOpen, setIsForumOpen] = useState(false);
+  const [isMeetingsOpen, setIsMeetingsOpen] = useState(false);
+  const [isAllActivitiesOpen, setIsAllActivitiesOpen] = useState(false);
   const [isAllEventsOpen, setIsAllEventsOpen] = useState(false);
   const [isDepartmentsOpen, setIsDepartmentsOpen] = useState(false);
-    const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
-    const [isVoiceSearchActive, setIsVoiceSearchActive] = useState(false);
-  const [voiceSearchResults, setVoiceSearchResults] = useState<string>('');
-  const [selectedGrowthDepartment, setSelectedGrowthDepartment] = useState<string>('All Department');
-  const [chatTab, setChatTab] = useState<'inbox' | 'team' | 'create'>('inbox');
-  const [filesTab, setFilesTab] = useState<'recent' | 'shared' | 'upload'>('recent');
-  const [forumTab, setForumTab] = useState<'posts' | 'create'>('posts');
-  const [calendarView, setCalendarView] = useState<'list' | 'calendar'>('list');
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
+    null,
+  );
+  const [isVoiceSearchActive, setIsVoiceSearchActive] = useState(false);
+  const [voiceSearchResults, setVoiceSearchResults] = useState<string>("");
+  const [selectedGrowthDepartment, setSelectedGrowthDepartment] =
+    useState<string>("All Department");
+  const [chatTab, setChatTab] = useState<"inbox" | "team" | "create">("inbox");
+  const [filesTab, setFilesTab] = useState<"recent" | "shared" | "upload">(
+    "recent",
+  );
+  const [forumTab, setForumTab] = useState<"posts" | "create">("posts");
+  const [calendarView, setCalendarView] = useState<"list" | "calendar">("list");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
-  const [newGroupName, setNewGroupName] = useState('');
+  const [newGroupName, setNewGroupName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
-  const [newReminderTitle, setNewReminderTitle] = useState('');
-  const [newReminderDate, setNewReminderDate] = useState('');
-  const [newForumPost, setNewForumPost] = useState('');
-  const [newForumTitle, setNewForumTitle] = useState('');
+  const [newReminderTitle, setNewReminderTitle] = useState("");
+  const [newReminderDate, setNewReminderDate] = useState("");
+  const [newForumPost, setNewForumPost] = useState("");
+  const [newForumTitle, setNewForumTitle] = useState("");
 
   // Inbox messages
   const [inboxMessages, setInboxMessages] = useState([
     {
-            id: 1,
+      id: 1,
       sender: "Sarah Johnson",
-      message: "Hi! The Q2 performance reviews are due next week. Can you review the drafts I sent?",
+      message:
+        "Hi! The Q2 performance reviews are due next week. Can you review the drafts I sent?",
       time: "09:15 AM",
       isBot: false,
       avatar: "SJ",
-      department: "HR Department"
+      department: "HR Department",
     },
     {
-            id: 2,
+      id: 2,
       sender: "You",
-      message: "Sure! I'll review them today and get back to you with feedback.",
+      message:
+        "Sure! I'll review them today and get back to you with feedback.",
       time: "09:20 AM",
       isBot: false,
       avatar: "YO",
-      department: "Your Department"
+      department: "Your Department",
     },
     {
-            id: 3,
+      id: 3,
       sender: "Mike Chen",
-      message: "The new API documentation is ready for review. Could you check the authentication section?",
+      message:
+        "The new API documentation is ready for review. Could you check the authentication section?",
       time: "11:45 AM",
       isBot: false,
       avatar: "MC",
-      department: "Engineering"
-        },
+      department: "Engineering",
+    },
   ]);
 
   // Team chat messages
   const [teamMessages, setTeamMessages] = useState({
-    'Engineering Team': [
+    "Engineering Team": [
       {
         id: 1,
         sender: "John Doe",
         message: "Hey everyone! Ready for the sprint planning meeting?",
         time: "09:30 AM",
         isBot: false,
-        avatar: "JD"
+        avatar: "JD",
       },
       {
         id: 2,
@@ -108,7 +116,7 @@ export function Dashboard() {
         message: "Yes! I've prepared the user stories for review.",
         time: "09:32 AM",
         isBot: false,
-        avatar: "SJ"
+        avatar: "SJ",
       },
       {
         id: 3,
@@ -116,17 +124,17 @@ export function Dashboard() {
         message: "Great! Should we start with the API endpoints discussion?",
         time: "09:35 AM",
         isBot: false,
-        avatar: "MC"
-      }
+        avatar: "MC",
+      },
     ],
-    'HR Team': [
+    "HR Team": [
       {
         id: 1,
         sender: "Lisa Wong",
         message: "New employee orientation is scheduled for Monday at 10 AM.",
         time: "08:45 AM",
         isBot: false,
-        avatar: "LW"
+        avatar: "LW",
       },
       {
         id: 2,
@@ -134,258 +142,267 @@ export function Dashboard() {
         message: "I'll prepare the welcome packages for new hires.",
         time: "08:50 AM",
         isBot: false,
-        avatar: "DK"
-      }
+        avatar: "DK",
+      },
     ],
-    'Design Team': [
+    "Design Team": [
       {
         id: 1,
         sender: "Emma Wilson",
         message: "Updated design system is ready for review!",
         time: "11:20 AM",
         isBot: false,
-        avatar: "EW"
-      }
-    ]
+        avatar: "EW",
+      },
+    ],
   });
 
-    // Available team members for group creation
+  // Available team members for group creation
   const availableMembers = [
-    { id: '1', name: 'John Doe', department: 'Engineering', avatar: 'JD' },
-    { id: '2', name: 'Sarah Johnson', department: 'Engineering', avatar: 'SJ' },
-    { id: '3', name: 'Mike Chen', department: 'Engineering', avatar: 'MC' },
-    { id: '4', name: 'Lisa Wong', department: 'HR', avatar: 'LW' },
-    { id: '5', name: 'David Kim', department: 'HR', avatar: 'DK' },
-    { id: '6', name: 'Emma Wilson', department: 'Design', avatar: 'EW' },
-    { id: '7', name: 'Alex Rodriguez', department: 'Marketing', avatar: 'AR' },
-    { id: '8', name: 'Sophie Brown', department: 'Finance', avatar: 'SB' }
+    { id: "1", name: "John Doe", department: "Engineering", avatar: "JD" },
+    { id: "2", name: "Sarah Johnson", department: "Engineering", avatar: "SJ" },
+    { id: "3", name: "Mike Chen", department: "Engineering", avatar: "MC" },
+    { id: "4", name: "Lisa Wong", department: "HR", avatar: "LW" },
+    { id: "5", name: "David Kim", department: "HR", avatar: "DK" },
+    { id: "6", name: "Emma Wilson", department: "Design", avatar: "EW" },
+    { id: "7", name: "Alex Rodriguez", department: "Marketing", avatar: "AR" },
+    { id: "8", name: "Sophie Brown", department: "Finance", avatar: "SB" },
   ];
 
   // Activity Feed Data
   const [activities] = useState([
     {
       id: 1,
-      type: 'user_joined',
-      user: 'John Doe',
-      action: 'joined the HR Department',
-      time: '10 mins ago',
-      icon: '👤',
-      department: 'HR'
+      type: "user_joined",
+      user: "John Doe",
+      action: "joined the HR Department",
+      time: "10 mins ago",
+      icon: "👤",
+      department: "HR",
     },
     {
       id: 2,
-      type: 'assessment',
-      user: 'Sarah Johnson',
-      action: 'completed AI Assessment with score 94%',
-      time: '1 hour ago',
-      icon: '🎯',
-      department: 'Engineering'
+      type: "assessment",
+      user: "Sarah Johnson",
+      action: "completed AI Assessment with score 94%",
+      time: "1 hour ago",
+      icon: "🎯",
+      department: "Engineering",
     },
     {
       id: 3,
-      type: 'onboarding',
-      user: 'Mike Chen',
-      action: 'started onboarding process',
-      time: '2 hours ago',
-      icon: '🚀',
-      department: 'Engineering'
+      type: "onboarding",
+      user: "Mike Chen",
+      action: "started onboarding process",
+      time: "2 hours ago",
+      icon: "🚀",
+      department: "Engineering",
     },
     {
       id: 4,
-      type: 'review',
-      user: 'System',
-      action: 'Q2 Performance reviews completed for Engineering team (15 employees)',
-      time: '1 day ago',
-      icon: '📋',
-      department: 'All'
+      type: "review",
+      user: "System",
+      action:
+        "Q2 Performance reviews completed for Engineering team (15 employees)",
+      time: "1 day ago",
+      icon: "📋",
+      department: "All",
     },
     {
       id: 5,
-      type: 'payroll',
-      user: 'System',
-      action: 'Monthly payroll processed successfully for 1,247 employees',
-      time: '2 days ago',
-      icon: '💰',
-      department: 'Finance'
+      type: "payroll",
+      user: "System",
+      action: "Monthly payroll processed successfully for 1,247 employees",
+      time: "2 days ago",
+      icon: "💰",
+      department: "Finance",
     },
     {
       id: 6,
-      type: 'promotion',
-      user: 'Emma Wilson',
-      action: 'promoted to Senior UI/UX Designer',
-      time: '3 days ago',
-      icon: '🎉',
-      department: 'Design'
-    }
+      type: "promotion",
+      user: "Emma Wilson",
+      action: "promoted to Senior UI/UX Designer",
+      time: "3 days ago",
+      icon: "🎉",
+      department: "Design",
+    },
   ]);
 
   // Files Data
   const [files] = useState([
     {
       id: 1,
-      name: 'Employee Handbook 2024.pdf',
-      size: '2.4 MB',
-      type: 'PDF',
-      uploadedBy: 'HR Team',
-      uploadedAt: '2024-06-15',
-      category: 'Documentation',
-      shared: true
+      name: "Employee Handbook 2024.pdf",
+      size: "2.4 MB",
+      type: "PDF",
+      uploadedBy: "HR Team",
+      uploadedAt: "2024-06-15",
+      category: "Documentation",
+      shared: true,
     },
     {
       id: 2,
-      name: 'Q2 Performance Reports.xlsx',
-      size: '1.8 MB',
-      type: 'Excel',
-      uploadedBy: 'Sarah Johnson',
-      uploadedAt: '2024-06-20',
-      category: 'Reports',
-      shared: false
+      name: "Q2 Performance Reports.xlsx",
+      size: "1.8 MB",
+      type: "Excel",
+      uploadedBy: "Sarah Johnson",
+      uploadedAt: "2024-06-20",
+      category: "Reports",
+      shared: false,
     },
     {
       id: 3,
-      name: 'Team Building Photos.zip',
-      size: '15.6 MB',
-      type: 'Archive',
-      uploadedBy: 'Events Team',
-      uploadedAt: '2024-06-18',
-      category: 'Media',
-      shared: true
+      name: "Team Building Photos.zip",
+      size: "15.6 MB",
+      type: "Archive",
+      uploadedBy: "Events Team",
+      uploadedAt: "2024-06-18",
+      category: "Media",
+      shared: true,
     },
     {
       id: 4,
-      name: 'New Hire Checklist.docx',
-      size: '245 KB',
-      type: 'Word',
-      uploadedBy: 'Lisa Wong',
-      uploadedAt: '2024-06-10',
-      category: 'Templates',
-      shared: true
+      name: "New Hire Checklist.docx",
+      size: "245 KB",
+      type: "Word",
+      uploadedBy: "Lisa Wong",
+      uploadedAt: "2024-06-10",
+      category: "Templates",
+      shared: true,
     },
     {
       id: 5,
-      name: 'Project Proposal - AI Integration.pptx',
-      size: '5.2 MB',
-      type: 'PowerPoint',
-      uploadedBy: 'John Doe',
-      uploadedAt: '2024-06-22',
-      category: 'Presentations',
-      shared: false
-    }
+      name: "Project Proposal - AI Integration.pptx",
+      size: "5.2 MB",
+      type: "PowerPoint",
+      uploadedBy: "John Doe",
+      uploadedAt: "2024-06-22",
+      category: "Presentations",
+      shared: false,
+    },
   ]);
 
   // Reminders Data
   const [reminders, setReminders] = useState([
     {
       id: 1,
-      title: 'Team Meeting - Sprint Planning',
-      description: 'Weekly sprint planning meeting with Engineering team',
+      title: "Team Meeting - Sprint Planning",
+      description: "Weekly sprint planning meeting with Engineering team",
       date: new Date(2024, 5, 25, 10, 0),
-      priority: 'high',
+      priority: "high",
       completed: false,
-      type: 'meeting'
+      type: "meeting",
     },
     {
       id: 2,
-      title: 'Submit Performance Review',
-      description: 'Complete Q2 performance review for team members',
+      title: "Submit Performance Review",
+      description: "Complete Q2 performance review for team members",
       date: new Date(2024, 5, 28, 17, 0),
-      priority: 'high',
+      priority: "high",
       completed: false,
-      type: 'task'
+      type: "task",
     },
     {
       id: 3,
-      title: 'Employee Feedback Session',
-      description: 'Conduct feedback session with new hires',
+      title: "Employee Feedback Session",
+      description: "Conduct feedback session with new hires",
       date: new Date(2024, 5, 30, 14, 0),
-      priority: 'medium',
+      priority: "medium",
       completed: false,
-      type: 'meeting'
+      type: "meeting",
     },
     {
       id: 4,
-      title: 'Update Security Protocols',
-      description: 'Review and update company security guidelines',
+      title: "Update Security Protocols",
+      description: "Review and update company security guidelines",
       date: new Date(2024, 6, 2, 9, 0),
-      priority: 'medium',
+      priority: "medium",
       completed: true,
-      type: 'task'
-    }
+      type: "task",
+    },
   ]);
 
   // Forum Posts Data
   const [forumPosts, setForumPosts] = useState([
     {
       id: 1,
-      title: 'New Remote Work Policy Guidelines',
-      content: 'Introducing our new approach for work-life balance and transparency. Everyone who is part of decision making processes should read this.',
-      author: 'Sarah Johnson',
-      department: 'HR Department',
-      avatar: 'SJ',
-      createdAt: '1 hour ago',
+      title: "New Remote Work Policy Guidelines",
+      content:
+        "Introducing our new approach for work-life balance and transparency. Everyone who is part of decision making processes should read this.",
+      author: "Sarah Johnson",
+      department: "HR Department",
+      avatar: "SJ",
+      createdAt: "1 hour ago",
       likes: 32,
       comments: 15,
       shares: 5,
       views: 245,
-      tags: ['Policy', 'Remote Work', 'Guidelines']
+      tags: ["Policy", "Remote Work", "Guidelines"],
     },
     {
       id: 2,
-      title: 'AI Integration Success Stories',
-      content: 'Share your experiences with our new AI tools and how they\'ve improved your workflow. Let\'s celebrate our wins!',
-      author: 'John Doe',
-      department: 'Engineering',
-      avatar: 'JD',
-      createdAt: '3 hours ago',
+      title: "AI Integration Success Stories",
+      content:
+        "Share your experiences with our new AI tools and how they've improved your workflow. Let's celebrate our wins!",
+      author: "John Doe",
+      department: "Engineering",
+      avatar: "JD",
+      createdAt: "3 hours ago",
       likes: 28,
       comments: 22,
       shares: 8,
       views: 189,
-      tags: ['AI', 'Technology', 'Success']
+      tags: ["AI", "Technology", "Success"],
     },
     {
       id: 3,
-      title: 'Employee Wellness Program Updates',
-      content: 'New wellness initiatives including mental health support, fitness programs, and flexible working hours.',
-      author: 'Lisa Wong',
-      department: 'HR Department',
-      avatar: 'LW',
-      createdAt: '1 day ago',
+      title: "Employee Wellness Program Updates",
+      content:
+        "New wellness initiatives including mental health support, fitness programs, and flexible working hours.",
+      author: "Lisa Wong",
+      department: "HR Department",
+      avatar: "LW",
+      createdAt: "1 day ago",
       likes: 45,
       comments: 31,
       shares: 12,
       views: 312,
-      tags: ['Wellness', 'Health', 'Benefits']
+      tags: ["Wellness", "Health", "Benefits"],
     },
     {
       id: 4,
-      title: 'Q3 Innovation Challenge',
-      content: 'Submit your innovative ideas for process improvement. Top 3 ideas will receive funding and implementation support.',
-      author: 'Emma Wilson',
-      department: 'Design Team',
-      avatar: 'EW',
-      createdAt: '2 days ago',
+      title: "Q3 Innovation Challenge",
+      content:
+        "Submit your innovative ideas for process improvement. Top 3 ideas will receive funding and implementation support.",
+      author: "Emma Wilson",
+      department: "Design Team",
+      avatar: "EW",
+      createdAt: "2 days ago",
       likes: 67,
       comments: 43,
       shares: 18,
       views: 456,
-      tags: ['Innovation', 'Challenge', 'Ideas']
-    }
+      tags: ["Innovation", "Challenge", "Ideas"],
+    },
   ]);
 
-    const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState("");
   const [newTeamMessage, setNewTeamMessage] = useState("");
 
   // Meetings state
-  const [meetingsTab, setMeetingsTab] = useState<"upcoming" | "schedule">("upcoming");
+  const [meetingsTab, setMeetingsTab] = useState<"upcoming" | "schedule">(
+    "upcoming",
+  );
   const [newMeetingTitle, setNewMeetingTitle] = useState("");
   const [newMeetingDate, setNewMeetingDate] = useState("");
   const [newMeetingDuration, setNewMeetingDuration] = useState("60");
-  const [selectedMeetingMembers, setSelectedMeetingMembers] = useState<string[]>([]);
+  const [selectedMeetingMembers, setSelectedMeetingMembers] = useState<
+    string[]
+  >([]);
 
-    const handleSendMessage = () => {
+  const handleSendMessage = () => {
     if (newMessage.trim()) {
-            const message = {
+      const message = {
         id: inboxMessages.length + 1,
         sender: "You",
         message: newMessage,
@@ -395,7 +412,7 @@ export function Dashboard() {
         }),
         isBot: false,
         avatar: "YO",
-        department: "Your Department"
+        department: "Your Department",
       };
       setInboxMessages([...inboxMessages, message]);
       setNewMessage("");
@@ -413,12 +430,12 @@ export function Dashboard() {
           minute: "2-digit",
         }),
         isBot: false,
-        avatar: "YO"
+        avatar: "YO",
       };
 
-      setTeamMessages(prev => ({
+      setTeamMessages((prev) => ({
         ...prev,
-        [selectedTeam]: [...prev[selectedTeam], message]
+        [selectedTeam]: [...prev[selectedTeam], message],
       }));
       setNewTeamMessage("");
     }
@@ -438,24 +455,24 @@ export function Dashboard() {
               minute: "2-digit",
             }),
             isBot: true,
-            avatar: "SY"
-          }
-        ]
+            avatar: "SY",
+          },
+        ],
       };
 
-      setTeamMessages(prev => ({ ...prev, ...newGroup }));
-      setNewGroupName('');
+      setTeamMessages((prev) => ({ ...prev, ...newGroup }));
+      setNewGroupName("");
       setSelectedMembers([]);
-      setChatTab('team');
+      setChatTab("team");
       setSelectedTeam(newGroupName);
     }
   };
 
-    const toggleMemberSelection = (memberId: string) => {
-    setSelectedMembers(prev =>
+  const toggleMemberSelection = (memberId: string) => {
+    setSelectedMembers((prev) =>
       prev.includes(memberId)
-        ? prev.filter(id => id !== memberId)
-        : [...prev, memberId]
+        ? prev.filter((id) => id !== memberId)
+        : [...prev, memberId],
     );
   };
 
@@ -464,25 +481,25 @@ export function Dashboard() {
       const newReminder = {
         id: reminders.length + 1,
         title: newReminderTitle,
-        description: '',
+        description: "",
         date: new Date(newReminderDate),
-        priority: 'medium' as const,
+        priority: "medium" as const,
         completed: false,
-        type: 'task' as const
+        type: "task" as const,
       };
       setReminders([...reminders, newReminder]);
-      setNewReminderTitle('');
-      setNewReminderDate('');
+      setNewReminderTitle("");
+      setNewReminderDate("");
     }
   };
 
   const toggleReminderComplete = (id: number) => {
-    setReminders(prev =>
-      prev.map(reminder =>
+    setReminders((prev) =>
+      prev.map((reminder) =>
         reminder.id === id
           ? { ...reminder, completed: !reminder.completed }
-          : reminder
-      )
+          : reminder,
+      ),
     );
   };
 
@@ -492,50 +509,55 @@ export function Dashboard() {
         id: forumPosts.length + 1,
         title: newForumTitle,
         content: newForumPost,
-        author: 'You',
-        department: 'Your Department',
-        avatar: 'YO',
-        createdAt: 'Just now',
+        author: "You",
+        department: "Your Department",
+        avatar: "YO",
+        createdAt: "Just now",
         likes: 0,
         comments: 0,
         shares: 0,
         views: 1,
-        tags: ['Discussion']
+        tags: ["Discussion"],
       };
       setForumPosts([newPost, ...forumPosts]);
-      setNewForumTitle('');
-      setNewForumPost('');
-      setForumTab('posts');
+      setNewForumTitle("");
+      setNewForumPost("");
+      setForumTab("posts");
     }
   };
 
-    const handleLikePost = (postId: number) => {
-    setForumPosts(prev =>
-      prev.map(post =>
-        post.id === postId
-          ? { ...post, likes: post.likes + 1 }
-          : post
-      )
+  const handleLikePost = (postId: number) => {
+    setForumPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, likes: post.likes + 1 } : post,
+      ),
     );
   };
 
   // Voice Search Functionality
   const startVoiceSearch = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert('Voice search is not supported in your browser. Please use Chrome or Edge.');
+    if (
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ) {
+      alert(
+        "Voice search is not supported in your browser. Please use Chrome or Edge.",
+      );
       return;
     }
 
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    recognition.lang = "en-US";
 
     recognition.onstart = () => {
       setIsVoiceSearchActive(true);
-      setVoiceSearchResults('Listening...');
+      setVoiceSearchResults("Listening...");
     };
 
     recognition.onresult = (event: any) => {
@@ -545,7 +567,9 @@ export function Dashboard() {
       // Simulate search results
       setTimeout(() => {
         const searchResults = searchForumPosts(transcript);
-        setVoiceSearchResults(`Found ${searchResults.length} results for "${transcript}"`);
+        setVoiceSearchResults(
+          `Found ${searchResults.length} results for "${transcript}"`,
+        );
       }, 1000);
     };
 
@@ -561,17 +585,20 @@ export function Dashboard() {
     recognition.start();
   };
 
-    const searchForumPosts = (query: string) => {
-    return forumPosts.filter(post =>
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.content.toLowerCase().includes(query.toLowerCase()) ||
-      post.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+  const searchForumPosts = (query: string) => {
+    return forumPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(query.toLowerCase()) ||
+        post.content.toLowerCase().includes(query.toLowerCase()) ||
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(query.toLowerCase()),
+        ),
     );
   };
 
   // Department-specific growth data
   const departmentGrowthData = {
-    'All Department': [
+    "All Department": [
       { month: "June", newHires: 25, exit: 5 },
       { month: "May", newHires: 50, exit: 8 },
       { month: "April", newHires: 55, exit: 12 },
@@ -579,7 +606,7 @@ export function Dashboard() {
       { month: "February", newHires: 45, exit: 7 },
       { month: "January", newHires: 75, exit: 10 },
     ],
-    'HR': [
+    HR: [
       { month: "June", newHires: 3, exit: 1 },
       { month: "May", newHires: 5, exit: 0 },
       { month: "April", newHires: 7, exit: 2 },
@@ -587,7 +614,7 @@ export function Dashboard() {
       { month: "February", newHires: 4, exit: 1 },
       { month: "January", newHires: 8, exit: 1 },
     ],
-    'Engineering': [
+    Engineering: [
       { month: "June", newHires: 12, exit: 2 },
       { month: "May", newHires: 25, exit: 3 },
       { month: "April", newHires: 28, exit: 5 },
@@ -595,7 +622,7 @@ export function Dashboard() {
       { month: "February", newHires: 22, exit: 2 },
       { month: "January", newHires: 35, exit: 4 },
     ],
-    'Finance': [
+    Finance: [
       { month: "June", newHires: 2, exit: 1 },
       { month: "May", newHires: 4, exit: 2 },
       { month: "April", newHires: 5, exit: 1 },
@@ -603,7 +630,7 @@ export function Dashboard() {
       { month: "February", newHires: 3, exit: 1 },
       { month: "January", newHires: 6, exit: 2 },
     ],
-    'Marketing': [
+    Marketing: [
       { month: "June", newHires: 4, exit: 0 },
       { month: "May", newHires: 8, exit: 1 },
       { month: "April", newHires: 7, exit: 2 },
@@ -611,21 +638,25 @@ export function Dashboard() {
       { month: "February", newHires: 6, exit: 1 },
       { month: "January", newHires: 12, exit: 1 },
     ],
-    'Sales': [
+    Sales: [
       { month: "June", newHires: 4, exit: 1 },
       { month: "May", newHires: 8, exit: 2 },
       { month: "April", newHires: 8, exit: 2 },
       { month: "March", newHires: 4, exit: 2 },
       { month: "February", newHires: 10, exit: 2 },
       { month: "January", newHires: 14, exit: 2 },
-    ]
+    ],
   };
 
   const getCurrentDepartmentData = () => {
-    return departmentGrowthData[selectedGrowthDepartment as keyof typeof departmentGrowthData] || departmentGrowthData['All Department'];
+    return (
+      departmentGrowthData[
+        selectedGrowthDepartment as keyof typeof departmentGrowthData
+      ] || departmentGrowthData["All Department"]
+    );
   };
 
-    const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -639,40 +670,44 @@ export function Dashboard() {
       title: "Tech Summer 2024",
       date: new Date(2024, 5, 29), // June 29, 2024
       tags: ["Awaited", "Conference", "Workshop"],
-      description: "Join us for the biggest Tech event discussing innovative and industry insights",
+      description:
+        "Join us for the biggest Tech event discussing innovative and industry insights",
       location: "Grand Convention Center",
       attendees: "2529 Attendees",
-      type: "conference"
+      type: "conference",
     },
     {
       id: 2,
       title: "Team Building and Innovation Workshop",
       date: new Date(2024, 6, 15), // July 15, 2024
       tags: ["Registration Due", "Innovation", "Awaited"],
-      description: "Collaboration Workshop focusing on innovation methodologies and Team dynamics",
+      description:
+        "Collaboration Workshop focusing on innovation methodologies and Team dynamics",
       location: "Training Center",
       attendees: "156 Attendees",
-      type: "workshop"
+      type: "workshop",
     },
     {
       id: 3,
       title: "Holiday Celebration and Award Night",
       date: new Date(2024, 11, 20), // December 20, 2024
       tags: ["Creative", "Social", "Awards"],
-      description: "Annual Celebration and Award ceremony, dinner and entertainment",
+      description:
+        "Annual Celebration and Award ceremony, dinner and entertainment",
       location: "Skyline Rooftop",
       attendees: "45 Attendees",
-      type: "celebration"
+      type: "celebration",
     },
     {
       id: 4,
       title: "Monthly All-Hands Meeting",
       date: new Date(2024, 5, 10), // June 10, 2024
       tags: ["Meeting", "Mandatory"],
-      description: "Company-wide meeting to discuss quarterly results and upcoming projects",
+      description:
+        "Company-wide meeting to discuss quarterly results and upcoming projects",
       location: "Main Conference Room",
       attendees: "1247 Attendees",
-      type: "meeting"
+      type: "meeting",
     },
     {
       id: 5,
@@ -682,7 +717,7 @@ export function Dashboard() {
       description: "Orientation session for new hires joining this month",
       location: "HR Training Room",
       attendees: "15 Attendees",
-      type: "training"
+      type: "training",
     },
     {
       id: 6,
@@ -692,8 +727,8 @@ export function Dashboard() {
       description: "Individual performance review meetings with managers",
       location: "Various Meeting Rooms",
       attendees: "450 Attendees",
-      type: "review"
-    }
+      type: "review",
+    },
   ];
 
   // Calendar helper functions
@@ -706,18 +741,20 @@ export function Dashboard() {
   };
 
   const getEventsForDate = (date: Date) => {
-    return companyEvents.filter(event => {
+    return companyEvents.filter((event) => {
       const eventDate = new Date(event.date);
-      return eventDate.getDate() === date.getDate() &&
-             eventDate.getMonth() === date.getMonth() &&
-             eventDate.getFullYear() === date.getFullYear();
+      return (
+        eventDate.getDate() === date.getDate() &&
+        eventDate.getMonth() === date.getMonth() &&
+        eventDate.getFullYear() === date.getFullYear()
+      );
     });
   };
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentMonth(prev => {
+  const navigateMonth = (direction: "prev" | "next") => {
+    setCurrentMonth((prev) => {
       const newMonth = new Date(prev);
-      if (direction === 'prev') {
+      if (direction === "prev") {
         newMonth.setMonth(prev.getMonth() - 1);
       } else {
         newMonth.setMonth(prev.getMonth() + 1);
@@ -731,32 +768,45 @@ export function Dashboard() {
     if (events.length === 0) return null;
 
     // Priority order for multiple events on same day
-    const eventTypes = events.map(e => e.type);
-    if (eventTypes.includes('conference')) return 'conference';
-    if (eventTypes.includes('celebration')) return 'celebration';
-    if (eventTypes.includes('workshop')) return 'workshop';
-    if (eventTypes.includes('meeting')) return 'meeting';
-    if (eventTypes.includes('training')) return 'training';
-    if (eventTypes.includes('review')) return 'review';
+    const eventTypes = events.map((e) => e.type);
+    if (eventTypes.includes("conference")) return "conference";
+    if (eventTypes.includes("celebration")) return "celebration";
+    if (eventTypes.includes("workshop")) return "workshop";
+    if (eventTypes.includes("meeting")) return "meeting";
+    if (eventTypes.includes("training")) return "training";
+    if (eventTypes.includes("review")) return "review";
     return eventTypes[0];
   };
 
-  const getColorClasses = (eventType: string | null, isSelected: boolean, isToday: boolean) => {
-    if (isSelected) return 'bg-blue-600 text-white border-2 border-blue-800';
-    if (isToday) return 'bg-blue-200 text-blue-800 border-2 border-blue-400';
+  const getColorClasses = (
+    eventType: string | null,
+    isSelected: boolean,
+    isToday: boolean,
+  ) => {
+    if (isSelected) return "bg-blue-600 text-white border-2 border-blue-800";
+    if (isToday) return "bg-blue-200 text-blue-800 border-2 border-blue-400";
 
-    if (!eventType) return 'hover:bg-gray-100 text-gray-700';
+    if (!eventType) return "hover:bg-gray-100 text-gray-700";
 
     const colorMap = {
-      'conference': 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200',
-      'celebration': 'bg-pink-100 text-pink-800 border border-pink-300 hover:bg-pink-200',
-      'workshop': 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200',
-      'meeting': 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200',
-      'training': 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200',
-      'review': 'bg-yellow-100 text-yellow-800 border border-yellow-300 hover:bg-yellow-200'
+      conference:
+        "bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200",
+      celebration:
+        "bg-pink-100 text-pink-800 border border-pink-300 hover:bg-pink-200",
+      workshop:
+        "bg-green-100 text-green-800 border border-green-300 hover:bg-green-200",
+      meeting:
+        "bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200",
+      training:
+        "bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200",
+      review:
+        "bg-yellow-100 text-yellow-800 border border-yellow-300 hover:bg-yellow-200",
     };
 
-    return colorMap[eventType as keyof typeof colorMap] || 'hover:bg-gray-100 text-gray-700';
+    return (
+      colorMap[eventType as keyof typeof colorMap] ||
+      "hover:bg-gray-100 text-gray-700"
+    );
   };
 
   const renderCalendar = () => {
@@ -766,21 +816,25 @@ export function Dashboard() {
 
     // Empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
-      days.push(
-        <div key={`empty-${i}`} className="h-12 w-12"></div>
-      );
+      days.push(<div key={`empty-${i}`} className="h-12 w-12"></div>);
     }
 
     // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      const currentDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+      const currentDate = new Date(
+        currentMonth.getFullYear(),
+        currentMonth.getMonth(),
+        day,
+      );
       const events = getEventsForDate(currentDate);
-      const isSelected = selectedDate.getDate() === day &&
-                        selectedDate.getMonth() === currentMonth.getMonth() &&
-                        selectedDate.getFullYear() === currentMonth.getFullYear();
-      const isToday = new Date().getDate() === day &&
-                     new Date().getMonth() === currentMonth.getMonth() &&
-                     new Date().getFullYear() === currentMonth.getFullYear();
+      const isSelected =
+        selectedDate.getDate() === day &&
+        selectedDate.getMonth() === currentMonth.getMonth() &&
+        selectedDate.getFullYear() === currentMonth.getFullYear();
+      const isToday =
+        new Date().getDate() === day &&
+        new Date().getMonth() === currentMonth.getMonth() &&
+        new Date().getFullYear() === currentMonth.getFullYear();
 
       const eventType = getEventTypeColor(events);
       const colorClasses = getColorClasses(eventType, isSelected, isToday);
@@ -791,7 +845,7 @@ export function Dashboard() {
           onClick={() => setSelectedDate(currentDate)}
           className={`h-12 w-12 rounded-lg text-sm font-medium transition-all duration-200 relative
             ${colorClasses}
-            ${events.length > 0 ? 'font-bold shadow-md' : ''}
+            ${events.length > 0 ? "font-bold shadow-md" : ""}
           `}
         >
           {day}
@@ -801,59 +855,69 @@ export function Dashboard() {
               <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
                 {events.slice(0, 3).map((event, index) => {
                   const dotColorMap = {
-                    'conference': 'bg-purple-500',
-                    'celebration': 'bg-pink-500',
-                    'workshop': 'bg-green-500',
-                    'meeting': 'bg-blue-500',
-                    'training': 'bg-orange-500',
-                    'review': 'bg-yellow-500'
+                    conference: "bg-purple-500",
+                    celebration: "bg-pink-500",
+                    workshop: "bg-green-500",
+                    meeting: "bg-blue-500",
+                    training: "bg-orange-500",
+                    review: "bg-yellow-500",
                   };
-                  const dotColor = dotColorMap[event.type as keyof typeof dotColorMap] || 'bg-gray-500';
+                  const dotColor =
+                    dotColorMap[event.type as keyof typeof dotColorMap] ||
+                    "bg-gray-500";
 
                   return (
                     <div
                       key={index}
-                      className={`w-1.5 h-1.5 rounded-full ${dotColor} ${isSelected ? 'bg-white' : ''}`}
+                      className={`w-1.5 h-1.5 rounded-full ${dotColor} ${isSelected ? "bg-white" : ""}`}
                     />
                   );
                 })}
                 {events.length > 3 && (
-                  <div className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-gray-400'}`} />
+                  <div
+                    className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-gray-400"}`}
+                  />
                 )}
               </div>
 
               {/* Event count badge for multiple events */}
               {events.length > 1 && (
-                <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full text-xs flex items-center justify-center font-bold
-                  ${isSelected
-                    ? 'bg-white text-blue-600'
-                    : eventType === 'conference' ? 'bg-purple-500 text-white'
-                    : eventType === 'celebration' ? 'bg-pink-500 text-white'
-                    : eventType === 'workshop' ? 'bg-green-500 text-white'
-                    : eventType === 'meeting' ? 'bg-blue-500 text-white'
-                    : eventType === 'training' ? 'bg-orange-500 text-white'
-                    : 'bg-yellow-500 text-white'
+                <div
+                  className={`absolute -top-1 -right-1 w-4 h-4 rounded-full text-xs flex items-center justify-center font-bold
+                  ${
+                    isSelected
+                      ? "bg-white text-blue-600"
+                      : eventType === "conference"
+                        ? "bg-purple-500 text-white"
+                        : eventType === "celebration"
+                          ? "bg-pink-500 text-white"
+                          : eventType === "workshop"
+                            ? "bg-green-500 text-white"
+                            : eventType === "meeting"
+                              ? "bg-blue-500 text-white"
+                              : eventType === "training"
+                                ? "bg-orange-500 text-white"
+                                : "bg-yellow-500 text-white"
                   }
-                `}>
+                `}
+                >
                   {events.length}
                 </div>
               )}
             </>
           )}
-        </button>
+        </button>,
       );
     }
 
     return days;
   };
 
-    return (
+  return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      
-
       {/* Content Container */}
       <div className="relative z-10 p-6 space-y-6">
-                {/* Header */}
+        {/* Header */}
         <div className="bg-blue-500 border border-blue-600 shadow-lg rounded-2xl p-6 md:p-8">
           <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -875,12 +939,21 @@ export function Dashboard() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="text-xs" onClick={() => alert('Reports feature coming soon!')}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs"
+                  onClick={() => alert("Reports feature coming soon!")}
+                >
                   <Eye className="w-3 h-3 mr-1" />
                   <span className="hidden sm:inline">View Reports</span>
                   <span className="sm:hidden">Reports</span>
                 </Button>
-                                                <Button size="sm" className="text-xs" onClick={() => alert('Quick Action menu coming soon!')}>
+                <Button
+                  size="sm"
+                  className="text-xs"
+                  onClick={() => alert("Quick Action menu coming soon!")}
+                >
                   <Zap className="w-3 h-3 mr-1" />
                   <span className="hidden sm:inline">Quick Action</span>
                   <span className="sm:hidden">Action</span>
@@ -890,9 +963,9 @@ export function Dashboard() {
           </div>
         </div>
 
-                {/* Metrics Grid - Top Row */}
+        {/* Metrics Grid - Top Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                    <MetricCard
+          <MetricCard
             title="Total Employees"
             value="1,247"
             description="Active Workforce size"
@@ -944,7 +1017,7 @@ export function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <MetricCard
+          <MetricCard
             title="Pending Onboarding"
             value="10"
             description="Awaiting Onboarding"
@@ -996,7 +1069,7 @@ export function Dashboard() {
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Employee Growth Trends */}
+          {/* Employee Growth Trends */}
           <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
@@ -1008,7 +1081,7 @@ export function Dashboard() {
                     Monthly hiring and exit patterns
                   </p>
                 </div>
-                                <select
+                <select
                   className="text-sm border border-gray-300 rounded-md px-3 py-1 bg-white"
                   value={selectedGrowthDepartment}
                   onChange={(e) => setSelectedGrowthDepartment(e.target.value)}
@@ -1033,12 +1106,17 @@ export function Dashboard() {
               </div>
             </CardHeader>
             <CardContent className="pt-2">
-                            <div className="h-64 relative px-4">
+              <div className="h-64 relative px-4">
                 {(() => {
                   const currentData = getCurrentDepartmentData();
-                  const maxValue = Math.max(...currentData.flatMap(d => [d.newHires, d.exit]));
+                  const maxValue = Math.max(
+                    ...currentData.flatMap((d) => [d.newHires, d.exit]),
+                  );
                   const scale = Math.max(80, Math.ceil(maxValue / 20) * 20); // Minimum 80, rounded to nearest 20
-                  const gridValues = Array.from({length: 5}, (_, i) => (i * scale) / 4);
+                  const gridValues = Array.from(
+                    { length: 5 },
+                    (_, i) => (i * scale) / 4,
+                  );
 
                   return (
                     <>
@@ -1057,7 +1135,7 @@ export function Dashboard() {
 
                       {/* Y-axis labels */}
                       <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400 py-4">
-                        {gridValues.reverse().map(value => (
+                        {gridValues.reverse().map((value) => (
                           <span key={value}>{value}</span>
                         ))}
                       </div>
@@ -1065,11 +1143,13 @@ export function Dashboard() {
                   );
                 })()}
 
-                                                {/* Chart bars */}
+                {/* Chart bars */}
                 <div className="flex justify-between w-full ml-8 h-full">
                   {(() => {
                     const currentData = getCurrentDepartmentData();
-                    const maxValue = Math.max(...currentData.flatMap(d => [d.newHires, d.exit]));
+                    const maxValue = Math.max(
+                      ...currentData.flatMap((d) => [d.newHires, d.exit]),
+                    );
                     const scale = Math.max(80, Math.ceil(maxValue / 20) * 20);
 
                     return currentData.map((item, index) => (
@@ -1130,7 +1210,7 @@ export function Dashboard() {
             </CardContent>
           </Card>
 
-                    {/* Department Distribution */}
+          {/* Department Distribution */}
           <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg font-semibold text-gray-900">
@@ -1143,7 +1223,7 @@ export function Dashboard() {
             <CardContent>
               <div className="flex items-center justify-center h-48 mb-6">
                 <div className="relative">
-                                    <svg width="160" height="160" viewBox="0 0 160 160">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
                     <circle
                       cx="80"
                       cy="80"
@@ -1202,7 +1282,7 @@ export function Dashboard() {
                   </svg>
                 </div>
               </div>
-                            <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { label: "Engineering", color: "bg-blue-500" },
                   { label: "Finance", color: "bg-gray-500" },
@@ -1222,7 +1302,7 @@ export function Dashboard() {
 
         {/* Activities and Updates Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                        {/* Recent Activities */}
+          {/* Recent Activities */}
           <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-semibold mb-1">
@@ -1265,9 +1345,9 @@ export function Dashboard() {
                     time: "2 days ago",
                     icon: "💰",
                   },
-                                ].map((activity, index) => (
+                ].map((activity, index) => (
                   <div key={index} className="flex items-start gap-3 py-2">
-                                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0">
                       {activity.icon}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -1277,11 +1357,17 @@ export function Dashboard() {
                             {activity.text}
                           </p>
                           <div className="flex items-center gap-3 mt-1">
-                                                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${activity.categoryColor || 'bg-blue-100 text-blue-600'}`}>
-                              {activity.category || (activity.type === 'user' ? 'Onboarding' : activity.type.charAt(0).toUpperCase() + activity.type.slice(1))}
+                            <span
+                              className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${activity.categoryColor || "bg-blue-100 text-blue-600"}`}
+                            >
+                              {activity.category ||
+                                (activity.type === "user"
+                                  ? "Onboarding"
+                                  : activity.type.charAt(0).toUpperCase() +
+                                    activity.type.slice(1))}
                             </span>
                             <span className="text-xs text-gray-500">
-                              {activity.department || 'HR'}
+                              {activity.department || "HR"}
                             </span>
                           </div>
                         </div>
@@ -1293,8 +1379,8 @@ export function Dashboard() {
                   </div>
                 ))}
               </div>
-                            <div className="mt-4 pt-3 text-center">
-                                                <Button
+              <div className="mt-4 pt-3 text-center">
+                <Button
                   variant="link"
                   className="text-sm text-blue-600 p-0 h-auto font-medium hover:text-blue-700"
                   onClick={() => setIsAllActivitiesOpen(true)}
@@ -1305,7 +1391,7 @@ export function Dashboard() {
             </CardContent>
           </Card>
 
-                    {/* Latest E Forum Updates */}
+          {/* Latest E Forum Updates */}
           <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
@@ -1316,7 +1402,7 @@ export function Dashboard() {
                   Employee discussion forum for transparent workplace
                 </p>
               </div>
-                            <Button
+              <Button
                 variant="outline"
                 size="sm"
                 className="text-xs flex items-center gap-1"
@@ -1328,28 +1414,33 @@ export function Dashboard() {
                 ) : (
                   <Mic className="w-3 h-3" />
                 )}
-                {isVoiceSearchActive ? 'Listening...' : 'Voice Search'}
+                {isVoiceSearchActive ? "Listening..." : "Voice Search"}
               </Button>
-                        </CardHeader>
+            </CardHeader>
 
             {/* Voice Search Results */}
             {voiceSearchResults && (
               <div className="mx-6 mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Mic className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm text-blue-800 font-medium">Voice Search:</span>
-                  <span className="text-sm text-blue-700">{voiceSearchResults}</span>
+                  <span className="text-sm text-blue-800 font-medium">
+                    Voice Search:
+                  </span>
+                  <span className="text-sm text-blue-700">
+                    {voiceSearchResults}
+                  </span>
                 </div>
-                {!isVoiceSearchActive && voiceSearchResults.includes('Found') && (
-                  <Button
-                    variant="link"
-                    size="sm"
-                    className="text-xs text-blue-600 p-0 mt-1"
-                    onClick={() => setVoiceSearchResults('')}
-                  >
-                    Clear results
-                  </Button>
-                )}
+                {!isVoiceSearchActive &&
+                  voiceSearchResults.includes("Found") && (
+                    <Button
+                      variant="link"
+                      size="sm"
+                      className="text-xs text-blue-600 p-0 mt-1"
+                      onClick={() => setVoiceSearchResults("")}
+                    >
+                      Clear results
+                    </Button>
+                  )}
               </div>
             )}
 
@@ -1395,7 +1486,7 @@ export function Dashboard() {
                   </div>
                 </div>
               ))}
-                                          <Button
+              <Button
                 variant="link"
                 className="text-sm text-blue-600 p-0"
                 onClick={() => setIsForumOpen(true)}
@@ -1406,7 +1497,7 @@ export function Dashboard() {
           </Card>
         </div>
 
-                {/* Company Events */}
+        {/* Company Events */}
         <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
@@ -1417,20 +1508,20 @@ export function Dashboard() {
                 Company Upcoming events and activities
               </p>
             </div>
-                        <div className="flex gap-2">
+            <div className="flex gap-2">
               <Button
-                variant={calendarView === 'list' ? 'default' : 'outline'}
+                variant={calendarView === "list" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setCalendarView('list')}
+                onClick={() => setCalendarView("list")}
                 className="text-xs flex items-center gap-1"
               >
                 <List className="w-3 h-3" />
                 List
               </Button>
               <Button
-                variant={calendarView === 'calendar' ? 'default' : 'outline'}
+                variant={calendarView === "calendar" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setCalendarView('calendar')}
+                onClick={() => setCalendarView("calendar")}
                 className="text-xs flex items-center gap-1"
               >
                 <Calendar className="w-3 h-3" />
@@ -1439,7 +1530,11 @@ export function Dashboard() {
               <Button
                 variant="default"
                 size="sm"
-                onClick={() => alert('Add Event: Create new company event!\n\nFeatures coming soon:\n• Event title & description\n• Date & time selection\n• Location & attendees\n• Event type & tags')}
+                onClick={() =>
+                  alert(
+                    "Add Event: Create new company event!\n\nFeatures coming soon:\n• Event title & description\n• Date & time selection\n• Location & attendees\n• Event type & tags",
+                  )
+                }
                 className="text-xs flex items-center gap-1 bg-blue-600 hover:bg-blue-700"
               >
                 <CalendarPlus className="w-3 h-3" />
@@ -1447,8 +1542,8 @@ export function Dashboard() {
               </Button>
             </div>
           </CardHeader>
-                    <CardContent className="space-y-4">
-            {calendarView === 'list' ? (
+          <CardContent className="space-y-4">
+            {calendarView === "list" ? (
               // List View
               <>
                 {companyEvents.map((event, index) => (
@@ -1478,14 +1573,18 @@ export function Dashboard() {
                           <span>👥 {event.attendees}</span>
                         </div>
                       </div>
-                      <Button size="sm" className="text-xs flex items-center gap-1" onClick={() => alert('Event registration coming soon!')}>
+                      <Button
+                        size="sm"
+                        className="text-xs flex items-center gap-1"
+                        onClick={() => alert("Event registration coming soon!")}
+                      >
                         <CalendarPlus className="w-3 h-3" />
                         Going to Event
                       </Button>
                     </div>
                   </div>
                 ))}
-                                                <Button
+                <Button
                   variant="link"
                   className="text-sm text-blue-600 p-0"
                   onClick={() => setIsAllEventsOpen(true)}
@@ -1499,16 +1598,19 @@ export function Dashboard() {
                 {/* Calendar Header */}
                 <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3">
                   <button
-                    onClick={() => navigateMonth('prev')}
+                    onClick={() => navigateMonth("prev")}
                     className="p-2 hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 text-blue-600 font-bold"
                   >
                     ← Prev
                   </button>
                   <h3 className="text-lg font-bold text-gray-800">
-                    {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                    {currentMonth.toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}
                   </h3>
                   <button
-                    onClick={() => navigateMonth('next')}
+                    onClick={() => navigateMonth("next")}
                     className="p-2 hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 text-blue-600 font-bold"
                   >
                     Next →
@@ -1519,13 +1621,25 @@ export function Dashboard() {
                 <div className="space-y-2">
                   {/* Day Headers */}
                   <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold">
-                    {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => (
-                      <div key={day} className={`h-8 flex items-center justify-center rounded-md
-                        ${index === 0 || index === 6
-                          ? 'text-blue-600 bg-blue-50'
-                          : 'text-gray-700 bg-gray-50'
+                    {[
+                      "Sunday",
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                    ].map((day, index) => (
+                      <div
+                        key={day}
+                        className={`h-8 flex items-center justify-center rounded-md
+                        ${
+                          index === 0 || index === 6
+                            ? "text-blue-600 bg-blue-50"
+                            : "text-gray-700 bg-gray-50"
                         }
-                      `}>
+                      `}
+                      >
                         <span className="hidden md:inline">{day}</span>
                         <span className="md:hidden">{day.slice(0, 3)}</span>
                       </div>
@@ -1540,7 +1654,9 @@ export function Dashboard() {
 
                 {/* Color Legend */}
                 <div className="bg-gray-50 rounded-lg p-3">
-                  <h4 className="text-xs font-semibold text-gray-600 mb-2">Event Types</h4>
+                  <h4 className="text-xs font-semibold text-gray-600 mb-2">
+                    Event Types
+                  </h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded bg-purple-500"></div>
@@ -1580,7 +1696,7 @@ export function Dashboard() {
                       size="sm"
                       variant="outline"
                       className="text-xs flex items-center gap-1 hover:bg-purple-50"
-                      onClick={() => alert('Quick add Conference event')}
+                      onClick={() => alert("Quick add Conference event")}
                     >
                       <div className="w-2 h-2 rounded bg-purple-500"></div>
                       Add Conference
@@ -1589,7 +1705,7 @@ export function Dashboard() {
                       size="sm"
                       variant="outline"
                       className="text-xs flex items-center gap-1 hover:bg-blue-50"
-                      onClick={() => alert('Quick add Meeting event')}
+                      onClick={() => alert("Quick add Meeting event")}
                     >
                       <div className="w-2 h-2 rounded bg-blue-500"></div>
                       Add Meeting
@@ -1598,7 +1714,7 @@ export function Dashboard() {
                       size="sm"
                       variant="outline"
                       className="text-xs flex items-center gap-1 hover:bg-green-50"
-                      onClick={() => alert('Quick add Workshop event')}
+                      onClick={() => alert("Quick add Workshop event")}
                     >
                       <div className="w-2 h-2 rounded bg-green-500"></div>
                       Add Workshop
@@ -1614,17 +1730,30 @@ export function Dashboard() {
                     </h4>
                     <div className="space-y-2">
                       {getEventsForDate(selectedDate).map((event) => (
-                        <div key={event.id} className="bg-gray-50 rounded-lg p-3">
+                        <div
+                          key={event.id}
+                          className="bg-gray-50 rounded-lg p-3"
+                        >
                           <div className="flex items-start justify-between">
                             <div>
-                              <h5 className="font-medium text-sm">{event.title}</h5>
-                              <p className="text-xs text-gray-600 mt-1">{event.description}</p>
+                              <h5 className="font-medium text-sm">
+                                {event.title}
+                              </h5>
+                              <p className="text-xs text-gray-600 mt-1">
+                                {event.description}
+                              </p>
                               <div className="flex items-center gap-2 text-xs text-gray-500 mt-2">
                                 <span>📍 {event.location}</span>
                                 <span>👥 {event.attendees}</span>
                               </div>
                             </div>
-                            <Button size="sm" className="text-xs flex items-center gap-1" onClick={() => alert('Event joining feature coming soon!')}>
+                            <Button
+                              size="sm"
+                              className="text-xs flex items-center gap-1"
+                              onClick={() =>
+                                alert("Event joining feature coming soon!")
+                              }
+                            >
                               <Users className="w-3 h-3" />
                               Join
                             </Button>
@@ -1639,17 +1768,41 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-                {/* Bottom Navigation */}
+        {/* Bottom Navigation */}
         <div className="bg-white border-t border-gray-200 shadow-lg p-4">
           <div className="flex items-center justify-center gap-2 md:gap-8 overflow-x-auto">
-                        {[
-              { icon: "📊", label: "Activity Feed", action: () => setIsActivityOpen(true) },
+            {[
+              {
+                icon: "📊",
+                label: "Activity Feed",
+                action: () => setIsActivityOpen(true),
+              },
               { icon: "💬", label: "Chat", action: () => setIsChatOpen(true) },
-              { icon: "📁", label: "Files", action: () => setIsFilesOpen(true) },
-                            { icon: "👥", label: "Meetings", action: () => setIsMeetingsOpen(true) },
-              { icon: "🔔", label: "Reminders", action: () => setIsRemindersOpen(true) },
-              { icon: "💬", label: "E - Forum", action: () => setIsForumOpen(true) },
-              { icon: "🏪", label: "AI2AIM STORE", action: () => alert('AI2AIM Store coming soon!') },
+              {
+                icon: "📁",
+                label: "Files",
+                action: () => setIsFilesOpen(true),
+              },
+              {
+                icon: "👥",
+                label: "Meetings",
+                action: () => setIsMeetingsOpen(true),
+              },
+              {
+                icon: "🔔",
+                label: "Reminders",
+                action: () => setIsRemindersOpen(true),
+              },
+              {
+                icon: "💬",
+                label: "E - Forum",
+                action: () => setIsForumOpen(true),
+              },
+              {
+                icon: "🏪",
+                label: "AI2AIM STORE",
+                action: () => alert("AI2AIM Store coming soon!"),
+              },
             ].map((item, index) => (
               <button
                 key={index}
@@ -1667,7 +1820,7 @@ export function Dashboard() {
 
         {/* Chat Modal */}
         <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
-                    <DialogContent className="sm:max-w-2xl max-h-[90vh]">
+          <DialogContent className="sm:max-w-2xl max-h-[90vh]">
             <DialogHeader>
               <DialogTitle className="flex items-center justify-between">
                 💬 AI2AIM Chat Hub
@@ -1686,25 +1839,25 @@ export function Dashboard() {
               {/* Chat Navigation Tabs */}
               <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
                 <Button
-                  variant={chatTab === 'inbox' ? 'default' : 'ghost'}
+                  variant={chatTab === "inbox" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setChatTab('inbox')}
+                  onClick={() => setChatTab("inbox")}
                   className="flex-1 text-xs"
                 >
                   📧 Inbox
                 </Button>
                 <Button
-                  variant={chatTab === 'team' ? 'default' : 'ghost'}
+                  variant={chatTab === "team" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setChatTab('team')}
+                  onClick={() => setChatTab("team")}
                   className="flex-1 text-xs"
                 >
                   👥 Team Chat
                 </Button>
                 <Button
-                  variant={chatTab === 'create' ? 'default' : 'ghost'}
+                  variant={chatTab === "create" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setChatTab('create')}
+                  onClick={() => setChatTab("create")}
                   className="flex-1 text-xs"
                 >
                   ➕ Create Group
@@ -1712,32 +1865,40 @@ export function Dashboard() {
               </div>
 
               {/* Chat Content */}
-              {chatTab === 'inbox' && (
+              {chatTab === "inbox" && (
                 <div className="space-y-4">
-                                    {/* Inbox Messages */}
+                  {/* Inbox Messages */}
                   <ScrollArea className="h-80 w-full border rounded-lg p-4">
                     <div className="space-y-3">
                       {inboxMessages.map((msg) => (
                         <div key={msg.id} className="flex items-start gap-3">
                           <Avatar className="w-8 h-8">
-                            <AvatarFallback className={`text-xs ${
-                              msg.sender === 'You'
-                                ? 'bg-blue-100 text-blue-600'
-                                : 'bg-gray-100 text-gray-600'
-                            }`}>
+                            <AvatarFallback
+                              className={`text-xs ${
+                                msg.sender === "You"
+                                  ? "bg-blue-100 text-blue-600"
+                                  : "bg-gray-100 text-gray-600"
+                              }`}
+                            >
                               {msg.avatar}
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-medium text-sm">{msg.sender}</span>
-                              <span className="text-xs text-gray-500">{msg.department} • {msg.time}</span>
+                              <span className="font-medium text-sm">
+                                {msg.sender}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {msg.department} • {msg.time}
+                              </span>
                             </div>
-                            <div className={`rounded-lg p-3 ${
-                              msg.sender === 'You'
-                                ? 'bg-blue-50 border border-blue-200'
-                                : 'bg-gray-50 border border-gray-200'
-                            }`}>
+                            <div
+                              className={`rounded-lg p-3 ${
+                                msg.sender === "You"
+                                  ? "bg-blue-50 border border-blue-200"
+                                  : "bg-gray-50 border border-gray-200"
+                              }`}
+                            >
                               <p className="text-sm">{msg.message}</p>
                             </div>
                           </div>
@@ -1749,7 +1910,7 @@ export function Dashboard() {
                   {/* Message Input */}
                   <div className="flex gap-2">
                     <Input
-                                            placeholder="Type your message..."
+                      placeholder="Type your message..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
@@ -1762,14 +1923,14 @@ export function Dashboard() {
                 </div>
               )}
 
-              {chatTab === 'team' && (
+              {chatTab === "team" && (
                 <div className="space-y-4">
                   {/* Team Selection */}
                   <div className="flex gap-2 flex-wrap">
                     {Object.keys(teamMessages).map((team) => (
                       <Button
                         key={team}
-                        variant={selectedTeam === team ? 'default' : 'outline'}
+                        variant={selectedTeam === team ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSelectedTeam(team)}
                         className="text-xs"
@@ -1785,7 +1946,10 @@ export function Dashboard() {
                       <ScrollArea className="h-80 w-full border rounded-lg p-4">
                         <div className="space-y-3">
                           {teamMessages[selectedTeam].map((msg) => (
-                            <div key={msg.id} className="flex items-start gap-3">
+                            <div
+                              key={msg.id}
+                              className="flex items-start gap-3"
+                            >
                               <Avatar className="w-8 h-8">
                                 <AvatarFallback className="bg-blue-100 text-blue-600 text-xs">
                                   {msg.avatar}
@@ -1793,8 +1957,12 @@ export function Dashboard() {
                               </Avatar>
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className="font-medium text-sm">{msg.sender}</span>
-                                  <span className="text-xs text-gray-500">{msg.time}</span>
+                                  <span className="font-medium text-sm">
+                                    {msg.sender}
+                                  </span>
+                                  <span className="text-xs text-gray-500">
+                                    {msg.time}
+                                  </span>
                                 </div>
                                 <div className="bg-gray-50 rounded-lg p-2">
                                   <p className="text-sm">{msg.message}</p>
@@ -1834,11 +2002,13 @@ export function Dashboard() {
                 </div>
               )}
 
-              {chatTab === 'create' && (
+              {chatTab === "create" && (
                 <div className="space-y-4">
                   {/* Group Name Input */}
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Group Name</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Group Name
+                    </label>
                     <Input
                       placeholder="Enter group name..."
                       value={newGroupName}
@@ -1858,8 +2028,8 @@ export function Dashboard() {
                             key={member.id}
                             className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${
                               selectedMembers.includes(member.id)
-                                ? 'bg-blue-50 border border-blue-200'
-                                : 'hover:bg-gray-50'
+                                ? "bg-blue-50 border border-blue-200"
+                                : "hover:bg-gray-50"
                             }`}
                             onClick={() => toggleMemberSelection(member.id)}
                           >
@@ -1869,8 +2039,12 @@ export function Dashboard() {
                               </AvatarFallback>
                             </Avatar>
                             <div className="flex-1">
-                              <p className="text-sm font-medium">{member.name}</p>
-                              <p className="text-xs text-gray-500">{member.department}</p>
+                              <p className="text-sm font-medium">
+                                {member.name}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {member.department}
+                              </p>
                             </div>
                             {selectedMembers.includes(member.id) && (
                               <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
@@ -1886,7 +2060,9 @@ export function Dashboard() {
                   {/* Create Group Button */}
                   <Button
                     onClick={handleCreateGroup}
-                    disabled={!newGroupName.trim() || selectedMembers.length === 0}
+                    disabled={
+                      !newGroupName.trim() || selectedMembers.length === 0
+                    }
                     className="w-full"
                   >
                     Create Group ({selectedMembers.length} members)
@@ -1894,7 +2070,7 @@ export function Dashboard() {
                 </div>
               )}
             </div>
-                    </DialogContent>
+          </DialogContent>
         </Dialog>
 
         {/* Activity Feed Modal */}
@@ -1917,22 +2093,36 @@ export function Dashboard() {
             <ScrollArea className="h-96 w-full">
               <div className="space-y-4">
                 {activities.map((activity) => (
-                  <div key={activity.id} className="flex items-start gap-3 p-4 border rounded-lg hover:bg-gray-50">
+                  <div
+                    key={activity.id}
+                    className="flex items-start gap-3 p-4 border rounded-lg hover:bg-gray-50"
+                  >
                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-lg">
                       {activity.icon}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-sm">{activity.user}</span>
+                        <span className="font-medium text-sm">
+                          {activity.user}
+                        </span>
                         <Badge variant="secondary" className="text-xs">
                           {activity.department}
                         </Badge>
-                        <span className="text-xs text-gray-500">{activity.time}</span>
+                        <span className="text-xs text-gray-500">
+                          {activity.time}
+                        </span>
                       </div>
                       <p className="text-sm text-gray-700">{activity.action}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <Badge variant={activity.type === 'user_joined' ? 'default' : 'outline'} className="text-xs">
-                          {activity.type.replace('_', ' ').toUpperCase()}
+                        <Badge
+                          variant={
+                            activity.type === "user_joined"
+                              ? "default"
+                              : "outline"
+                          }
+                          className="text-xs"
+                        >
+                          {activity.type.replace("_", " ").toUpperCase()}
                         </Badge>
                       </div>
                     </div>
@@ -1964,38 +2154,43 @@ export function Dashboard() {
               {/* Files Navigation */}
               <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
                 <Button
-                  variant={filesTab === 'recent' ? 'default' : 'ghost'}
+                  variant={filesTab === "recent" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setFilesTab('recent')}
+                  onClick={() => setFilesTab("recent")}
                   className="flex-1 text-xs"
                 >
                   📄 Recent Files
                 </Button>
                 <Button
-                  variant={filesTab === 'shared' ? 'default' : 'ghost'}
+                  variant={filesTab === "shared" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setFilesTab('shared')}
+                  onClick={() => setFilesTab("shared")}
                   className="flex-1 text-xs"
                 >
                   🤝 Shared Files
                 </Button>
                 <Button
-                  variant={filesTab === 'upload' ? 'default' : 'ghost'}
+                  variant={filesTab === "upload" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setFilesTab('upload')}
+                  onClick={() => setFilesTab("upload")}
                   className="flex-1 text-xs"
                 >
                   ⬆️ Upload
                 </Button>
               </div>
 
-              {filesTab === 'recent' && (
+              {filesTab === "recent" && (
                 <ScrollArea className="h-96 w-full">
                   <div className="grid grid-cols-1 gap-3">
                     {files.map((file) => (
-                      <div key={file.id} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50">
+                      <div
+                        key={file.id}
+                        className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50"
+                      >
                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <span className="text-blue-600 font-bold text-xs">{file.type}</span>
+                          <span className="text-blue-600 font-bold text-xs">
+                            {file.type}
+                          </span>
                         </div>
                         <div className="flex-1">
                           <h4 className="font-medium text-sm">{file.name}</h4>
@@ -2003,15 +2198,27 @@ export function Dashboard() {
                             <span>📊 {file.size}</span>
                             <span>👤 {file.uploadedBy}</span>
                             <span>📅 {file.uploadedAt}</span>
-                            <Badge variant="outline" className="text-xs">{file.category}</Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {file.category}
+                            </Badge>
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline" className="text-xs" onClick={() => alert('File download coming soon!')}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs"
+                            onClick={() => alert("File download coming soon!")}
+                          >
                             📥 Download
                           </Button>
                           {file.shared && (
-                            <Button size="sm" variant="outline" className="text-xs" onClick={() => alert('File sharing coming soon!')}>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs"
+                              onClick={() => alert("File sharing coming soon!")}
+                            >
                               🔗 Share
                             </Button>
                           )}
@@ -2022,40 +2229,62 @@ export function Dashboard() {
                 </ScrollArea>
               )}
 
-              {filesTab === 'shared' && (
+              {filesTab === "shared" && (
                 <ScrollArea className="h-96 w-full">
                   <div className="grid grid-cols-1 gap-3">
-                    {files.filter(file => file.shared).map((file) => (
-                      <div key={file.id} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50">
-                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                          <span className="text-green-600 font-bold text-xs">{file.type}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-sm">{file.name}</h4>
-                          <div className="flex items-center gap-4 text-xs text-gray-500 mt-1">
-                            <span>📊 {file.size}</span>
-                            <span>👤 {file.uploadedBy}</span>
-                            <span>📅 {file.uploadedAt}</span>
-                            <Badge variant="secondary" className="text-xs">SHARED</Badge>
+                    {files
+                      .filter((file) => file.shared)
+                      .map((file) => (
+                        <div
+                          key={file.id}
+                          className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50"
+                        >
+                          <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <span className="text-green-600 font-bold text-xs">
+                              {file.type}
+                            </span>
                           </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-sm">{file.name}</h4>
+                            <div className="flex items-center gap-4 text-xs text-gray-500 mt-1">
+                              <span>📊 {file.size}</span>
+                              <span>👤 {file.uploadedBy}</span>
+                              <span>📅 {file.uploadedAt}</span>
+                              <Badge variant="secondary" className="text-xs">
+                                SHARED
+                              </Badge>
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            className="text-xs"
+                            onClick={() =>
+                              alert("Download feature coming soon!")
+                            }
+                          >
+                            📥 Download
+                          </Button>
                         </div>
-                        <Button size="sm" className="text-xs" onClick={() => alert('Download feature coming soon!')}>
-                          📥 Download
-                        </Button>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </ScrollArea>
               )}
 
-              {filesTab === 'upload' && (
+              {filesTab === "upload" && (
                 <div className="space-y-4">
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
                     <div className="space-y-2">
                       <div className="text-4xl">📁</div>
                       <h3 className="font-medium">Upload Files</h3>
-                      <p className="text-sm text-gray-500">Drag and drop files here, or click to browse</p>
-                      <Button className="mt-4" onClick={() => alert('File upload feature coming soon!')}>
+                      <p className="text-sm text-gray-500">
+                        Drag and drop files here, or click to browse
+                      </p>
+                      <Button
+                        className="mt-4"
+                        onClick={() =>
+                          alert("File upload feature coming soon!")
+                        }
+                      >
                         Choose Files
                       </Button>
                     </div>
@@ -2102,7 +2331,10 @@ export function Dashboard() {
                     value={newReminderDate}
                     onChange={(e) => setNewReminderDate(e.target.value)}
                   />
-                  <Button onClick={handleCreateReminder} disabled={!newReminderTitle.trim() || !newReminderDate}>
+                  <Button
+                    onClick={handleCreateReminder}
+                    disabled={!newReminderTitle.trim() || !newReminderDate}
+                  >
                     ➕ Add Reminder
                   </Button>
                 </div>
@@ -2112,29 +2344,42 @@ export function Dashboard() {
               <ScrollArea className="h-80 w-full">
                 <div className="space-y-3">
                   {reminders.map((reminder) => (
-                    <div key={reminder.id} className={`p-4 border rounded-lg ${
-                      reminder.completed ? 'bg-green-50 border-green-200' : 'bg-white'
-                    }`}>
+                    <div
+                      key={reminder.id}
+                      className={`p-4 border rounded-lg ${
+                        reminder.completed
+                          ? "bg-green-50 border-green-200"
+                          : "bg-white"
+                      }`}
+                    >
                       <div className="flex items-start gap-3">
                         <button
                           onClick={() => toggleReminderComplete(reminder.id)}
                           className={`w-5 h-5 rounded border-2 flex items-center justify-center mt-0.5 ${
                             reminder.completed
-                              ? 'bg-green-500 border-green-500 text-white'
-                              : 'border-gray-300 hover:border-green-400'
+                              ? "bg-green-500 border-green-500 text-white"
+                              : "border-gray-300 hover:border-green-400"
                           }`}
                         >
-                          {reminder.completed && '✓'}
+                          {reminder.completed && "✓"}
                         </button>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h4 className={`font-medium text-sm ${
-                              reminder.completed ? 'line-through text-gray-500' : ''
-                            }`}>
+                            <h4
+                              className={`font-medium text-sm ${
+                                reminder.completed
+                                  ? "line-through text-gray-500"
+                                  : ""
+                              }`}
+                            >
                               {reminder.title}
                             </h4>
                             <Badge
-                              variant={reminder.priority === 'high' ? 'destructive' : 'secondary'}
+                              variant={
+                                reminder.priority === "high"
+                                  ? "destructive"
+                                  : "secondary"
+                              }
                               className="text-xs"
                             >
                               {reminder.priority.toUpperCase()}
@@ -2143,10 +2388,18 @@ export function Dashboard() {
                               {reminder.type.toUpperCase()}
                             </Badge>
                           </div>
-                          <p className="text-sm text-gray-600 mb-2">{reminder.description}</p>
+                          <p className="text-sm text-gray-600 mb-2">
+                            {reminder.description}
+                          </p>
                           <div className="flex items-center gap-4 text-xs text-gray-500">
                             <span>📅 {reminder.date.toLocaleDateString()}</span>
-                            <span>🕐 {reminder.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                            <span>
+                              🕐{" "}
+                              {reminder.date.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -2179,24 +2432,24 @@ export function Dashboard() {
               {/* Forum Navigation */}
               <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
                 <Button
-                  variant={forumTab === 'posts' ? 'default' : 'ghost'}
+                  variant={forumTab === "posts" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setForumTab('posts')}
+                  onClick={() => setForumTab("posts")}
                   className="flex-1 text-xs"
                 >
                   📋 All Posts
                 </Button>
                 <Button
-                  variant={forumTab === 'create' ? 'default' : 'ghost'}
+                  variant={forumTab === "create" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setForumTab('create')}
+                  onClick={() => setForumTab("create")}
                   className="flex-1 text-xs"
                 >
                   ✍️ Create Post
                 </Button>
               </div>
 
-              {forumTab === 'posts' && (
+              {forumTab === "posts" && (
                 <ScrollArea className="h-96 w-full">
                   <div className="space-y-4">
                     {forumPosts.map((post) => (
@@ -2209,14 +2462,26 @@ export function Dashboard() {
                           </Avatar>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <span className="font-medium text-sm">{post.author}</span>
-                              <span className="text-xs text-gray-500">{post.department} • {post.createdAt}</span>
+                              <span className="font-medium text-sm">
+                                {post.author}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {post.department} • {post.createdAt}
+                              </span>
                             </div>
-                            <h3 className="font-semibold text-base mb-2">{post.title}</h3>
-                            <p className="text-sm text-gray-700 mb-3">{post.content}</p>
+                            <h3 className="font-semibold text-base mb-2">
+                              {post.title}
+                            </h3>
+                            <p className="text-sm text-gray-700 mb-3">
+                              {post.content}
+                            </p>
                             <div className="flex gap-1 mb-3">
                               {post.tags.map((tag, index) => (
-                                <Badge key={index} variant="secondary" className="text-xs">
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs"
+                                >
                                   {tag}
                                 </Badge>
                               ))}
@@ -2246,10 +2511,12 @@ export function Dashboard() {
                 </ScrollArea>
               )}
 
-              {forumTab === 'create' && (
+              {forumTab === "create" && (
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Post Title</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Post Title
+                    </label>
                     <Input
                       placeholder="Enter post title..."
                       value={newForumTitle}
@@ -2257,7 +2524,9 @@ export function Dashboard() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Post Content</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Post Content
+                    </label>
                     <textarea
                       className="w-full h-32 p-3 border rounded-lg resize-none"
                       placeholder="Share your thoughts with the team..."
@@ -2276,7 +2545,7 @@ export function Dashboard() {
               )}
             </div>
           </DialogContent>
-                </Dialog>
+        </Dialog>
 
         {/* Meetings Modal */}
         <Dialog open={isMeetingsOpen} onOpenChange={setIsMeetingsOpen}>
@@ -2320,8 +2589,12 @@ export function Dashboard() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-medium">Sprint Planning Meeting</h4>
-                        <p className="text-sm text-gray-600">Engineering Team • Conference Room A</p>
-                        <p className="text-sm text-gray-500">10:00 AM - 11:30 AM (90 minutes)</p>
+                        <p className="text-sm text-gray-600">
+                          Engineering Team • Conference Room A
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          10:00 AM - 11:30 AM (90 minutes)
+                        </p>
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" className="text-xs">
@@ -2338,8 +2611,12 @@ export function Dashboard() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-medium">Q2 Performance Reviews</h4>
-                        <p className="text-sm text-gray-600">1-on-1 • Office 205</p>
-                        <p className="text-sm text-gray-500">2:00 PM - 3:00 PM (60 minutes)</p>
+                        <p className="text-sm text-gray-600">
+                          1-on-1 • Office 205
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          2:00 PM - 3:00 PM (60 minutes)
+                        </p>
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" className="text-xs">
@@ -2356,9 +2633,7 @@ export function Dashboard() {
 
               {/* Quick Actions */}
               <div className="flex gap-2">
-                <Button className="flex-1">
-                  📅 Schedule New Meeting
-                </Button>
+                <Button className="flex-1">📅 Schedule New Meeting</Button>
                 <Button variant="outline" className="flex-1">
                   📋 View All Meetings
                 </Button>
@@ -2368,10 +2643,13 @@ export function Dashboard() {
               </div>
             </div>
           </DialogContent>
-                </Dialog>
+        </Dialog>
 
         {/* View All Activities Modal */}
-        <Dialog open={isAllActivitiesOpen} onOpenChange={setIsAllActivitiesOpen}>
+        <Dialog
+          open={isAllActivitiesOpen}
+          onOpenChange={setIsAllActivitiesOpen}
+        >
           <DialogContent className="sm:max-w-4xl max-h-[90vh]">
             <DialogHeader>
               <DialogTitle className="flex items-center justify-between">
@@ -2390,12 +2668,24 @@ export function Dashboard() {
             <div className="space-y-4">
               {/* Filter Options */}
               <div className="flex gap-2 flex-wrap">
-                <Button variant="default" size="sm" className="text-xs">All</Button>
-                <Button variant="outline" size="sm" className="text-xs">Onboarding</Button>
-                <Button variant="outline" size="sm" className="text-xs">Performance</Button>
-                <Button variant="outline" size="sm" className="text-xs">Payroll</Button>
-                <Button variant="outline" size="sm" className="text-xs">Training</Button>
-                <Button variant="outline" size="sm" className="text-xs">Reviews</Button>
+                <Button variant="default" size="sm" className="text-xs">
+                  All
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  Onboarding
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  Performance
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  Payroll
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  Training
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  Reviews
+                </Button>
               </div>
 
               {/* Activities List */}
@@ -2410,80 +2700,90 @@ export function Dashboard() {
                       department: "HR",
                       time: "2 hours ago",
                       icon: "👤",
-                      priority: "normal"
+                      priority: "normal",
                     },
                     {
                       type: "assessment",
-                      title: "Sarah Johnson completed AI Assessment with 94% score",
+                      title:
+                        "Sarah Johnson completed AI Assessment with 94% score",
                       category: "Assessment",
                       categoryColor: "bg-green-100 text-green-600",
                       department: "HR",
                       time: "3 hours ago",
                       icon: "🎯",
-                      priority: "high"
+                      priority: "high",
                     },
                     {
                       type: "onboarding",
-                      title: "Mike Chen started onboarding process in Engineering",
+                      title:
+                        "Mike Chen started onboarding process in Engineering",
                       category: "Onboarding",
                       categoryColor: "bg-blue-100 text-blue-600",
                       department: "Engineering",
                       time: "4 hours ago",
                       icon: "👤",
-                      priority: "normal"
+                      priority: "normal",
                     },
                     {
                       type: "meeting",
-                      title: "Sprint planning meeting completed for Engineering team",
+                      title:
+                        "Sprint planning meeting completed for Engineering team",
                       category: "Meeting",
                       categoryColor: "bg-purple-100 text-purple-600",
                       department: "Engineering",
                       time: "5 hours ago",
                       icon: "📅",
-                      priority: "normal"
+                      priority: "normal",
                     },
                     {
                       type: "performance",
-                      title: "Q2 Performance reviews completed for Engineering team",
+                      title:
+                        "Q2 Performance reviews completed for Engineering team",
                       category: "Performance",
                       categoryColor: "bg-orange-100 text-orange-600",
                       department: "Engineering Team",
                       time: "1 day ago",
                       icon: "📋",
-                      priority: "high"
+                      priority: "high",
                     },
                     {
                       type: "payroll",
-                      title: "Monthly payroll processed successfully for 1,247 employees",
+                      title:
+                        "Monthly payroll processed successfully for 1,247 employees",
                       category: "Payroll",
                       categoryColor: "bg-yellow-100 text-yellow-600",
                       department: "HR",
                       time: "2 days ago",
                       icon: "💰",
-                      priority: "critical"
+                      priority: "critical",
                     },
                     {
                       type: "training",
-                      title: "Security training session completed by 45 employees",
+                      title:
+                        "Security training session completed by 45 employees",
                       category: "Training",
                       categoryColor: "bg-red-100 text-red-600",
                       department: "IT Security",
                       time: "3 days ago",
                       icon: "🛡️",
-                      priority: "normal"
+                      priority: "normal",
                     },
                     {
                       type: "document",
-                      title: "Employee handbook updated with new remote work policies",
+                      title:
+                        "Employee handbook updated with new remote work policies",
                       category: "Documentation",
                       categoryColor: "bg-indigo-100 text-indigo-600",
                       department: "HR",
                       time: "4 days ago",
                       icon: "📄",
-                      priority: "normal"
-                    }
+                      priority: "normal",
+                    },
                   ].map((activity, index) => (
-                    <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div
+                      key={index}
+                      className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                    >
                       <div className="flex items-start gap-3">
                         <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 flex-shrink-0">
                           {activity.icon}
@@ -2495,17 +2795,23 @@ export function Dashboard() {
                                 {activity.title}
                               </h4>
                               <div className="flex items-center gap-3 mb-2">
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${activity.categoryColor}`}>
+                                <span
+                                  className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${activity.categoryColor}`}
+                                >
                                   {activity.category}
                                 </span>
                                 <span className="text-xs text-gray-500">
                                   {activity.department}
                                 </span>
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                                  activity.priority === 'critical' ? 'bg-red-100 text-red-600' :
-                                  activity.priority === 'high' ? 'bg-orange-100 text-orange-600' :
-                                  'bg-gray-100 text-gray-600'
-                                }`}>
+                                <span
+                                  className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                                    activity.priority === "critical"
+                                      ? "bg-red-100 text-red-600"
+                                      : activity.priority === "high"
+                                        ? "bg-orange-100 text-orange-600"
+                                        : "bg-gray-100 text-gray-600"
+                                  }`}
+                                >
                                   {activity.priority.toUpperCase()}
                                 </span>
                               </div>
@@ -2558,15 +2864,29 @@ export function Dashboard() {
               {/* Filter and View Options */}
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                  <Button variant="default" size="sm" className="text-xs">All Events</Button>
-                  <Button variant="outline" size="sm" className="text-xs">Upcoming</Button>
-                  <Button variant="outline" size="sm" className="text-xs">This Month</Button>
-                  <Button variant="outline" size="sm" className="text-xs">Conferences</Button>
-                  <Button variant="outline" size="sm" className="text-xs">Training</Button>
+                  <Button variant="default" size="sm" className="text-xs">
+                    All Events
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Upcoming
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    This Month
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Conferences
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Training
+                  </Button>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="text-xs">📅 Calendar View</Button>
-                  <Button variant="outline" size="sm" className="text-xs">➕ Add Event</Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    📅 Calendar View
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    ➕ Add Event
+                  </Button>
                 </div>
               </div>
 
@@ -2576,91 +2896,121 @@ export function Dashboard() {
                   {[
                     {
                       title: "Tech Summer 2024",
-                      description: "Join us for the biggest Tech event discussing innovative and industry insights",
+                      description:
+                        "Join us for the biggest Tech event discussing innovative and industry insights",
                       date: "June 29, 2024",
                       time: "9:00 AM - 6:00 PM",
                       location: "Grand Convention Center",
                       attendees: "2,529 Attendees",
                       status: "Upcoming",
                       tags: ["Awaited", "Conference", "Workshop"],
-                      priority: "high"
+                      priority: "high",
                     },
                     {
                       title: "Team Building and Innovation Workshop",
-                      description: "Collaboration Workshop focusing on innovation methodologies and Team dynamics",
+                      description:
+                        "Collaboration Workshop focusing on innovation methodologies and Team dynamics",
                       date: "July 15, 2024",
                       time: "2:00 PM - 5:00 PM",
                       location: "Training Center",
                       attendees: "156 Attendees",
                       status: "Registration Open",
                       tags: ["Registration Due", "Innovation", "Awaited"],
-                      priority: "medium"
+                      priority: "medium",
                     },
                     {
                       title: "Holiday Celebration and Award Night",
-                      description: "Annual Celebration and Award ceremony, dinner and entertainment",
+                      description:
+                        "Annual Celebration and Award ceremony, dinner and entertainment",
                       date: "December 20, 2024",
                       time: "6:00 PM - 11:00 PM",
                       location: "Skyline Rooftop",
                       attendees: "45 Attendees",
                       status: "Planning",
                       tags: ["Creative", "Social", "Awards"],
-                      priority: "normal"
+                      priority: "normal",
                     },
                     {
                       title: "Q3 All-Hands Meeting",
-                      description: "Quarterly company meeting with updates, announcements, and Q&A session",
+                      description:
+                        "Quarterly company meeting with updates, announcements, and Q&A session",
                       date: "September 15, 2024",
                       time: "10:00 AM - 12:00 PM",
                       location: "Main Auditorium",
                       attendees: "1,247 Attendees",
                       status: "Scheduled",
                       tags: ["Mandatory", "Company", "Updates"],
-                      priority: "high"
+                      priority: "high",
                     },
                     {
                       title: "New Employee Orientation",
-                      description: "Welcome session for new hires with company overview and team introductions",
+                      description:
+                        "Welcome session for new hires with company overview and team introductions",
                       date: "Every Monday",
                       time: "9:00 AM - 1:00 PM",
                       location: "HR Training Room",
                       attendees: "10-15 Attendees",
                       status: "Recurring",
                       tags: ["Onboarding", "Training", "Weekly"],
-                      priority: "normal"
-                    }
+                      priority: "normal",
+                    },
                   ].map((event, index) => (
-                    <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div
+                      key={index}
+                      className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                    >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <h4 className="font-semibold text-base text-gray-900">{event.title}</h4>
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                              event.status === 'Upcoming' ? 'bg-green-100 text-green-600' :
-                              event.status === 'Registration Open' ? 'bg-blue-100 text-blue-600' :
-                              event.status === 'Planning' ? 'bg-yellow-100 text-yellow-600' :
-                              event.status === 'Scheduled' ? 'bg-purple-100 text-purple-600' :
-                              'bg-gray-100 text-gray-600'
-                            }`}>
+                            <h4 className="font-semibold text-base text-gray-900">
+                              {event.title}
+                            </h4>
+                            <span
+                              className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                                event.status === "Upcoming"
+                                  ? "bg-green-100 text-green-600"
+                                  : event.status === "Registration Open"
+                                    ? "bg-blue-100 text-blue-600"
+                                    : event.status === "Planning"
+                                      ? "bg-yellow-100 text-yellow-600"
+                                      : event.status === "Scheduled"
+                                        ? "bg-purple-100 text-purple-600"
+                                        : "bg-gray-100 text-gray-600"
+                              }`}
+                            >
                               {event.status}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-700 mb-3">{event.description}</p>
+                          <p className="text-sm text-gray-700 mb-3">
+                            {event.description}
+                          </p>
                           <div className="flex gap-1 mb-3">
                             {event.tags.map((tag, tagIndex) => (
-                              <Badge key={tagIndex} variant="secondary" className="text-xs">
+                              <Badge
+                                key={tagIndex}
+                                variant="secondary"
+                                className="text-xs"
+                              >
                                 {tag}
                               </Badge>
                             ))}
                           </div>
                           <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
                             <div>
-                              <p><strong>📅 Date:</strong> {event.date}</p>
-                              <p><strong>🕐 Time:</strong> {event.time}</p>
+                              <p>
+                                <strong>📅 Date:</strong> {event.date}
+                              </p>
+                              <p>
+                                <strong>🕐 Time:</strong> {event.time}
+                              </p>
                             </div>
                             <div>
-                              <p><strong>📍 Location:</strong> {event.location}</p>
-                              <p><strong>👥 Attendees:</strong> {event.attendees}</p>
+                              <p>
+                                <strong>📍 Location:</strong> {event.location}
+                              </p>
+                              <p>
+                                <strong>👥 Attendees:</strong> {event.attendees}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -2695,7 +3045,7 @@ export function Dashboard() {
               </div>
             </div>
           </DialogContent>
-                </Dialog>
+        </Dialog>
 
         {/* Departments Modal */}
         <Dialog open={isDepartmentsOpen} onOpenChange={setIsDepartmentsOpen}>
@@ -2728,7 +3078,7 @@ export function Dashboard() {
                     icon: "👥",
                     growth: "+5%",
                     active: 42,
-                    onLeave: 3
+                    onLeave: 3,
                   },
                   {
                     name: "Engineering",
@@ -2740,7 +3090,7 @@ export function Dashboard() {
                     icon: "⚙️",
                     growth: "+12%",
                     active: 125,
-                    onLeave: 3
+                    onLeave: 3,
                   },
                   {
                     name: "Finance",
@@ -2752,7 +3102,7 @@ export function Dashboard() {
                     icon: "💰",
                     growth: "+2%",
                     active: 30,
-                    onLeave: 2
+                    onLeave: 2,
                   },
                   {
                     name: "Sales",
@@ -2764,7 +3114,7 @@ export function Dashboard() {
                     icon: "📈",
                     growth: "+8%",
                     active: 64,
-                    onLeave: 3
+                    onLeave: 3,
                   },
                   {
                     name: "Marketing",
@@ -2776,13 +3126,15 @@ export function Dashboard() {
                     icon: "📊",
                     growth: "+6%",
                     active: 36,
-                    onLeave: 2
-                  }
+                    onLeave: 2,
+                  },
                 ].map((dept, index) => (
                   <div
                     key={index}
                     className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg ${dept.color} ${
-                      selectedDepartment === dept.name ? 'ring-2 ring-blue-500' : ''
+                      selectedDepartment === dept.name
+                        ? "ring-2 ring-blue-500"
+                        : ""
                     }`}
                     onClick={() => setSelectedDepartment(dept.name)}
                   >
@@ -2793,7 +3145,9 @@ export function Dashboard() {
                       <div className="space-y-1">
                         <p className="text-lg font-bold">{dept.employees}</p>
                         <p className="text-xs">Employees</p>
-                        <p className="text-xs font-medium">{dept.growth} Growth</p>
+                        <p className="text-xs font-medium">
+                          {dept.growth} Growth
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -2811,79 +3165,103 @@ export function Dashboard() {
                     {/* Department Stats */}
                     <div className="space-y-4">
                       <div className="bg-white rounded-lg p-4 border">
-                        <h4 className="font-medium text-sm mb-3">Department Statistics</h4>
+                        <h4 className="font-medium text-sm mb-3">
+                          Department Statistics
+                        </h4>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <p className="text-gray-500">Total Employees</p>
                             <p className="font-bold text-lg">
-                              {selectedDepartment === 'HR' ? '45' :
-                               selectedDepartment === 'Engineering' ? '128' :
-                               selectedDepartment === 'Finance' ? '32' :
-                               selectedDepartment === 'Sales' ? '67' : '38'}
+                              {selectedDepartment === "HR"
+                                ? "45"
+                                : selectedDepartment === "Engineering"
+                                  ? "128"
+                                  : selectedDepartment === "Finance"
+                                    ? "32"
+                                    : selectedDepartment === "Sales"
+                                      ? "67"
+                                      : "38"}
                             </p>
                           </div>
                           <div>
                             <p className="text-gray-500">Active</p>
                             <p className="font-bold text-lg text-green-600">
-                              {selectedDepartment === 'HR' ? '42' :
-                               selectedDepartment === 'Engineering' ? '125' :
-                               selectedDepartment === 'Finance' ? '30' :
-                               selectedDepartment === 'Sales' ? '64' : '36'}
+                              {selectedDepartment === "HR"
+                                ? "42"
+                                : selectedDepartment === "Engineering"
+                                  ? "125"
+                                  : selectedDepartment === "Finance"
+                                    ? "30"
+                                    : selectedDepartment === "Sales"
+                                      ? "64"
+                                      : "36"}
                             </p>
                           </div>
                           <div>
                             <p className="text-gray-500">On Leave</p>
                             <p className="font-bold text-lg text-orange-600">
-                              {selectedDepartment === 'HR' ? '3' :
-                               selectedDepartment === 'Engineering' ? '3' :
-                               selectedDepartment === 'Finance' ? '2' :
-                               selectedDepartment === 'Sales' ? '3' : '2'}
+                              {selectedDepartment === "HR"
+                                ? "3"
+                                : selectedDepartment === "Engineering"
+                                  ? "3"
+                                  : selectedDepartment === "Finance"
+                                    ? "2"
+                                    : selectedDepartment === "Sales"
+                                      ? "3"
+                                      : "2"}
                             </p>
                           </div>
                           <div>
                             <p className="text-gray-500">Budget</p>
                             <p className="font-bold text-lg">
-                              {selectedDepartment === 'HR' ? '$2.1M' :
-                               selectedDepartment === 'Engineering' ? '$8.5M' :
-                               selectedDepartment === 'Finance' ? '$3.2M' :
-                               selectedDepartment === 'Sales' ? '$4.8M' : '$2.9M'}
+                              {selectedDepartment === "HR"
+                                ? "$2.1M"
+                                : selectedDepartment === "Engineering"
+                                  ? "$8.5M"
+                                  : selectedDepartment === "Finance"
+                                    ? "$3.2M"
+                                    : selectedDepartment === "Sales"
+                                      ? "$4.8M"
+                                      : "$2.9M"}
                             </p>
                           </div>
                         </div>
                       </div>
 
                       <div className="bg-white rounded-lg p-4 border">
-                        <h4 className="font-medium text-sm mb-3">Recent Activities</h4>
+                        <h4 className="font-medium text-sm mb-3">
+                          Recent Activities
+                        </h4>
                         <div className="space-y-2 text-sm">
-                          {selectedDepartment === 'HR' && (
+                          {selectedDepartment === "HR" && (
                             <>
                               <p>• New hire onboarding: John Smith</p>
                               <p>• Performance review cycle completed</p>
                               <p>• Updated employee handbook</p>
                             </>
                           )}
-                          {selectedDepartment === 'Engineering' && (
+                          {selectedDepartment === "Engineering" && (
                             <>
                               <p>• Sprint planning meeting completed</p>
                               <p>• New API documentation released</p>
                               <p>• Security audit passed</p>
                             </>
                           )}
-                          {selectedDepartment === 'Finance' && (
+                          {selectedDepartment === "Finance" && (
                             <>
                               <p>• Q2 budget review completed</p>
                               <p>• Monthly payroll processed</p>
                               <p>• Expense reports approved</p>
                             </>
                           )}
-                          {selectedDepartment === 'Sales' && (
+                          {selectedDepartment === "Sales" && (
                             <>
                               <p>• Q2 targets exceeded by 15%</p>
                               <p>• New client acquisition: TechCorp</p>
                               <p>• Sales training session completed</p>
                             </>
                           )}
-                          {selectedDepartment === 'Marketing' && (
+                          {selectedDepartment === "Marketing" && (
                             <>
                               <p>• Campaign metrics improved 20%</p>
                               <p>• Brand guidelines updated</p>
@@ -2905,78 +3283,128 @@ export function Dashboard() {
                       <ScrollArea className="h-48">
                         <div className="space-y-2">
                           {/* Sample employees for each department */}
-                          {selectedDepartment === 'HR' && (
+                          {selectedDepartment === "HR" && (
                             <>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">SJ</div>
+                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  SJ
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Sarah Johnson</p>
-                                  <p className="text-xs text-gray-500">HR Manager</p>
+                                  <p className="text-sm font-medium">
+                                    Sarah Johnson
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    HR Manager
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">LW</div>
+                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  LW
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Lisa Wong</p>
-                                  <p className="text-xs text-gray-500">HR Specialist</p>
+                                  <p className="text-sm font-medium">
+                                    Lisa Wong
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    HR Specialist
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">DK</div>
+                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  DK
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">David Kim</p>
-                                  <p className="text-xs text-gray-500">Recruiter</p>
+                                  <p className="text-sm font-medium">
+                                    David Kim
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Recruiter
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
                               </div>
                             </>
                           )}
-                          {selectedDepartment === 'Engineering' && (
+                          {selectedDepartment === "Engineering" && (
                             <>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">JD</div>
+                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  JD
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">John Doe</p>
-                                  <p className="text-xs text-gray-500">Senior Developer</p>
+                                  <p className="text-sm font-medium">
+                                    John Doe
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Senior Developer
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">MC</div>
+                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  MC
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Mike Chen</p>
-                                  <p className="text-xs text-gray-500">Tech Lead</p>
+                                  <p className="text-sm font-medium">
+                                    Mike Chen
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Tech Lead
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">AL</div>
+                                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  AL
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Alex Lee</p>
-                                  <p className="text-xs text-gray-500">Frontend Developer</p>
+                                  <p className="text-sm font-medium">
+                                    Alex Lee
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Frontend Developer
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                             </>
                           )}
                           {/* Add more department-specific employees */}
-                          {(selectedDepartment === 'Finance' || selectedDepartment === 'Sales' || selectedDepartment === 'Marketing') && (
+                          {(selectedDepartment === "Finance" ||
+                            selectedDepartment === "Sales" ||
+                            selectedDepartment === "Marketing") && (
                             <>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium">TM</div>
+                                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  TM
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Team Member 1</p>
-                                  <p className="text-xs text-gray-500">Department Lead</p>
+                                  <p className="text-sm font-medium">
+                                    Team Member 1
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Department Lead
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
                               <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
-                                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium">TM</div>
+                                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium">
+                                  TM
+                                </div>
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium">Team Member 2</p>
-                                  <p className="text-xs text-gray-500">Specialist</p>
+                                  <p className="text-sm font-medium">
+                                    Team Member 2
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Specialist
+                                  </p>
                                 </div>
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                               </div>
@@ -2989,9 +3417,7 @@ export function Dashboard() {
 
                   {/* Department Actions */}
                   <div className="flex gap-2 mt-4 pt-4 border-t">
-                    <Button size="sm">
-                      📊 View Reports
-                    </Button>
+                    <Button size="sm">📊 View Reports</Button>
                     <Button size="sm" variant="outline">
                       👥 Manage Team
                     </Button>
@@ -3010,7 +3436,9 @@ export function Dashboard() {
 
               {/* Quick Actions */}
               <div className="border rounded-lg p-4">
-                <h3 className="font-medium text-sm mb-3">Quick Department Actions</h3>
+                <h3 className="font-medium text-sm mb-3">
+                  Quick Department Actions
+                </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   <Button size="sm" variant="outline" className="text-xs">
                     📊 Department Reports
