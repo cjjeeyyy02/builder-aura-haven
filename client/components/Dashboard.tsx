@@ -1502,10 +1502,16 @@ export function Dashboard() {
                 {/* Calendar Grid */}
                 <div className="space-y-2">
                   {/* Day Headers */}
-                  <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-500">
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                      <div key={day} className="h-8 flex items-center justify-center">
-                        {day}
+                  <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold">
+                    {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => (
+                      <div key={day} className={`h-8 flex items-center justify-center rounded-md
+                        ${index === 0 || index === 6
+                          ? 'text-blue-600 bg-blue-50'
+                          : 'text-gray-700 bg-gray-50'
+                        }
+                      `}>
+                        <span className="hidden md:inline">{day}</span>
+                        <span className="md:hidden">{day.slice(0, 3)}</span>
                       </div>
                     ))}
                   </div>
@@ -2103,7 +2109,7 @@ export function Dashboard() {
           <DialogContent className="sm:max-w-4xl max-h-[90vh]">
             <DialogHeader>
               <DialogTitle className="flex items-center justify-between">
-                💬 Employee Forum
+                �� Employee Forum
                 <Button
                   variant="ghost"
                   size="sm"
