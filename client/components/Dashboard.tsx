@@ -1516,6 +1516,37 @@ export function Dashboard() {
                   </div>
                 </div>
 
+                {/* Color Legend */}
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <h4 className="text-xs font-semibold text-gray-600 mb-2">Event Types</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-purple-500"></div>
+                      <span>Conference</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-pink-500"></div>
+                      <span>Celebration</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-green-500"></div>
+                      <span>Workshop</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-blue-500"></div>
+                      <span>Meeting</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-orange-500"></div>
+                      <span>Training</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-yellow-500"></div>
+                      <span>Review</span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Selected Date Events */}
                 {getEventsForDate(selectedDate).length > 0 && (
                   <div className="border-t pt-4">
