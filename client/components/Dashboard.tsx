@@ -722,6 +722,39 @@ export function Dashboard() {
     });
   };
 
+  // Helper function to get event type colors
+  const getEventTypeColor = (events: any[]) => {
+    if (events.length === 0) return null;
+
+    // Priority order for multiple events on same day
+    const eventTypes = events.map(e => e.type);
+    if (eventTypes.includes('conference')) return 'conference';
+    if (eventTypes.includes('celebration')) return 'celebration';
+    if (eventTypes.includes('workshop')) return 'workshop';
+    if (eventTypes.includes('meeting')) return 'meeting';
+    if (eventTypes.includes('training')) return 'training';
+    if (eventTypes.includes('review')) return 'review';
+    return eventTypes[0];
+  };
+
+  const getColorClasses = (eventType: string | null, isSelected: boolean, isToday: boolean) => {
+    if (isSelected) return 'bg-blue-600 text-white border-2 border-blue-800';
+    if (isToday) return 'bg-blue-200 text-blue-800 border-2 border-blue-400';
+
+    if (!eventType) return 'hover:bg-gray-100 text-gray-700';
+
+    const colorMap = {
+      'conference': 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200',
+      'celebration': 'bg-pink-100 text-pink-800 border border-pink-300 hover:bg-pink-200',
+      'workshop': 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200',
+      'meeting': 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200',
+      'training': 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200',
+      'review': 'bg-yellow-100 text-yellow-800 border border-yellow-300 hover:bg-yellow-200'
+    };
+
+    return colorMap[eventType as keyof typeof colorMap] || 'hover:bg-gray-100 text-gray-700';
+  };
+
   const renderCalendar = () => {
     const daysInMonth = getDaysInMonth(currentMonth);
     const firstDay = getFirstDayOfMonth(currentMonth);
@@ -730,7 +763,7 @@ export function Dashboard() {
     // Empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
       days.push(
-        <div key={`empty-${i}`} className="h-10 w-10"></div>
+        <div key={`empty-${i}`} className="h-12 w-12"></div>
       );
     }
 
@@ -745,27 +778,63 @@ export function Dashboard() {
                      new Date().getMonth() === currentMonth.getMonth() &&
                      new Date().getFullYear() === currentMonth.getFullYear();
 
+      const eventType = getEventTypeColor(events);
+      const colorClasses = getColorClasses(eventType, isSelected, isToday);
+
       days.push(
         <button
           key={day}
           onClick={() => setSelectedDate(currentDate)}
-          className={`h-10 w-10 rounded-lg text-sm font-medium transition-colors relative
-            ${isSelected
-              ? 'bg-blue-500 text-white'
-              : isToday
-                ? 'bg-blue-100 text-blue-600'
-                : 'hover:bg-gray-100'
-            }
-            ${events.length > 0 ? 'font-bold' : ''}
+          className={`h-12 w-12 rounded-lg text-sm font-medium transition-all duration-200 relative
+            ${colorClasses}
+            ${events.length > 0 ? 'font-bold shadow-md' : ''}
           `}
         >
           {day}
           {events.length > 0 && (
-            <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full text-xs flex items-center justify-center
-              ${isSelected ? 'bg-white text-blue-500' : 'bg-red-500 text-white'}
-            `}>
-              {events.length}
-            </div>
+            <>
+              {/* Event indicator dots */}
+              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
+                {events.slice(0, 3).map((event, index) => {
+                  const dotColorMap = {
+                    'conference': 'bg-purple-500',
+                    'celebration': 'bg-pink-500',
+                    'workshop': 'bg-green-500',
+                    'meeting': 'bg-blue-500',
+                    'training': 'bg-orange-500',
+                    'review': 'bg-yellow-500'
+                  };
+                  const dotColor = dotColorMap[event.type as keyof typeof dotColorMap] || 'bg-gray-500';
+
+                  return (
+                    <div
+                      key={index}
+                      className={`w-1.5 h-1.5 rounded-full ${dotColor} ${isSelected ? 'bg-white' : ''}`}
+                    />
+                  );
+                })}
+                {events.length > 3 && (
+                  <div className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-gray-400'}`} />
+                )}
+              </div>
+
+              {/* Event count badge for multiple events */}
+              {events.length > 1 && (
+                <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full text-xs flex items-center justify-center font-bold
+                  ${isSelected
+                    ? 'bg-white text-blue-600'
+                    : eventType === 'conference' ? 'bg-purple-500 text-white'
+                    : eventType === 'celebration' ? 'bg-pink-500 text-white'
+                    : eventType === 'workshop' ? 'bg-green-500 text-white'
+                    : eventType === 'meeting' ? 'bg-blue-500 text-white'
+                    : eventType === 'training' ? 'bg-orange-500 text-white'
+                    : 'bg-yellow-500 text-white'
+                  }
+                `}>
+                  {events.length}
+                </div>
+              )}
+            </>
           )}
         </button>
       );
@@ -2299,7 +2368,7 @@ export function Dashboard() {
                       categoryColor: "bg-yellow-100 text-yellow-600",
                       department: "HR",
                       time: "2 days ago",
-                      icon: "��",
+                      icon: "💰",
                       priority: "critical"
                     },
                     {
