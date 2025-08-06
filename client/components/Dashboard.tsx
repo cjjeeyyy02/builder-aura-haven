@@ -1481,21 +1481,21 @@ export function Dashboard() {
               // Calendar View
               <div className="space-y-4">
                 {/* Calendar Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3">
                   <button
                     onClick={() => navigateMonth('prev')}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+                    className="p-2 hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 text-blue-600 font-bold"
                   >
-                    ←
+                    ← Prev
                   </button>
-                  <h3 className="text-lg font-semibold">
+                  <h3 className="text-lg font-bold text-gray-800">
                     {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                   </h3>
                   <button
                     onClick={() => navigateMonth('next')}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+                    className="p-2 hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 text-blue-600 font-bold"
                   >
-                    →
+                    Next →
                   </button>
                 </div>
 
